@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -25,6 +26,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import Lottie from "react-lottie";
+import gift from "@/public/lotties/gift.json";
 
 // Define the form schema
 const formSchema = z.object({
@@ -55,6 +58,18 @@ export function MainForm({ updateFireworks }: MainFormProps) {
     setTimeout(() => updateFireworks(false), 10000);
   };
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: gift,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
+
+  const [showLottie, setShowLottie] = useState(false);
+  const [open, setOpen] = useState(false);
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -81,7 +96,7 @@ export function MainForm({ updateFireworks }: MainFormProps) {
         />
 
         {/* Confirmation Dialog */}
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button type="submit">확인</Button>
           </DialogTrigger>
@@ -109,10 +124,27 @@ export function MainForm({ updateFireworks }: MainFormProps) {
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit" onClick={() => window.location.href = '/gift'}>확인</Button>
+              <Button
+                type="submit"
+                onClick={() => {
+                  setOpen(false); // Close the dialog
+                  setShowLottie(true);
+                  setTimeout(() => {
+                    setShowLottie(false);
+                    window.location.href = "/gift";
+                  }, 3000); // Show animation for 3 seconds
+                }}
+              >
+                확인
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
+        {showLottie && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+            <Lottie options={defaultOptions} height={400} width={400} />
+          </div>
+        )}
       </form>
     </Form>
   );
