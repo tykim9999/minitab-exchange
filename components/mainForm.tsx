@@ -80,10 +80,10 @@ export function MainForm({ updateFireworks }: MainFormProps) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Enter your registration number</FormLabel>
-              <FormControl>
+              <FormControl >
                 <Input
                   type="number"
-                  {...field}
+                  style={{ fontSize: "16px" }}
                   onChange={(e) => field.onChange(e.target.valueAsNumber)}
                 />
               </FormControl>
