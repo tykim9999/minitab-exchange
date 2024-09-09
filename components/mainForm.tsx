@@ -113,14 +113,14 @@ export function MainForm({ updateFireworks }: MainFormProps) {
                 <Label htmlFor="name" className="text-right">
                   이름
                 </Label>
-                <Input id="name" className="col-span-3" />
+                <Input id="name" style={{ fontSize: "16px" }}className="col-span-3" />
               </div>
               {/* Message Input */}
               <div className="grid grid-cols-4 items-center gap-4">
                 <Label htmlFor="message" className="text-right">
                   응원메세지
                 </Label>
-                <Input id="message" className="col-span-3" />
+                <Input id="message" style={{ fontSize: "16px" }} className="col-span-3" />
               </div>
             </div>
             <DialogFooter>
