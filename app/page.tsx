@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { useRef, useState } from "react";
 import "animate.css";
 import { MainForm } from "@/components/mainForm";
-import { useRef, useState } from "react";
 import { Fireworks } from "@fireworks-js/react";
 import type { FireworksHandlers } from "@fireworks-js/react";
 
@@ -52,7 +52,7 @@ export default function Home() {
           QR코드 속 책을 찾아라!
         </h2>
         <h2 className="text-3xl font-light animate__animated animate__slideInRight">
-        그리고 추가 깜짝 이벤트까지!
+          그리고 추가 깜짝 이벤트까지!
         </h2>
 
         {/* Main form component */}
