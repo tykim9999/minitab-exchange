@@ -7,11 +7,12 @@
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
+    "types": ["node", "dotenv"],  // 'types' 배열에 'dotenv' 추가
     "plugins": [
       {
         "name": "next"
