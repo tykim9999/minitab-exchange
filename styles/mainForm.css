@@ -1,0 +1,122 @@
+/* mainform.css */
+
+.members{
+  margin-top: 20px; /* 위쪽 여백 */
+  margin-left: 40px; 
+  color: black; /* 텍스트 색상 */
+  font-weight: bold; /* 굵은 텍스트 */
+}
+
+
+  /* 팝업 내용 중앙 정렬 */
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+  .consent-title {
+    margin: 50px 0; 
+    color: black; /* 텍스트 색상 */
+    font-weight:bolder; 
+    font-size: 18px;
+  }
+
+  /* 줄 간 간격을 넓히는 스타일 */
+.agree-text {
+  /* margin-left: 20px; */
+  width: 290px;
+  color: #4F4F4F;
+  font-size: 14px;
+  font-weight: bolder;
+  line-height: 2.3; /* 줄 간 간격을 2배로 설정 */
+}
+
+  
+  
+  .input {
+    background-color: #E9E9E9;
+    width: 275px;
+    height: 45px;
+    border-radius: 15px;
+    padding: 0 10px;
+    color: #000;
+    font-size: 12px;
+  }
+  
+  .text {
+    background-color: #E9E9E9;
+    width: 275px;
+    height: 75px;
+    border-radius: 15px;
+    padding: 10px 10px;
+    color: #000;
+    font-size: 12px;
+  }
+  
+  .submitButton{
+    margin-left: 40px;
+    background-color: #2AA3FB;
+    width: 275px;
+    height: 45px;
+    border-radius: 10px;
+  }
+
+  .agree{
+    /* background-color: #000; */
+    /* border: 1px solid black; */
+    margin: auto;
+    height: 325px;
+  }
+
+  .popup-buttons {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    gap: 1rem; /* 버튼 사이의 간격 */
+    margin-top: 60px; /* 상단 여백 */
+  }
+
+  /* 버튼 공통 스타일 */
+.button {
+  background: linear-gradient(to right, #80d0c7, #4db6ac); /* 색상 그라데이션 */
+  color: white; /* 텍스트 색상 */
+  font-weight: 600; /* 굵은 텍스트 */
+  padding: 1rem 2.5rem; /* 상하, 좌우 패딩 */
+  border-radius: 9999px; /* 둥근 모서리 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+  transition: all 0.3s ease; /* 모든 변화에 대한 부드러운 전환 */
+  display: inline-flex; /* 버튼의 크기 조정 */
+  align-items: center; /* 텍스트 수직 정렬 */
+  justify-content: center; /* 텍스트 중앙 정렬 */
+  font-size: 1rem; /* 텍스트 크기 */
+  min-width: 150px; /* 최소 너비 설정 */
+}
+
+.button:hover {
+  background: linear-gradient(to right, #66c2c9, #009688); /* 호버 시 색상 변경 */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 변경 */
+  transform: scale(1.05); /* 호버 시 크기 확대 */
+}
+
+.button:disabled {
+  opacity: 0.5; /* 비활성화 상태 투명도 */
+  cursor: not-allowed; /* 비활성화 상태 커서 */
+}
+
+/* 예 버튼 스타일 */
+.button-yes {
+  background: linear-gradient(to right, #80d0c7, #4db6ac);
+}
+
+/* 아니오 버튼 스타일 */
+.button-no {
+  background: linear-gradient(to right, #f9a1a1, #e57373);
+}
+
+.button-no:hover {
+  background: linear-gradient(to right, #f07c7c, #d32f2f);
+}
+  
+  
