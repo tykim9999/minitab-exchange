@@ -114,7 +114,7 @@ export default function GiftPage() {
   
               <div className="flex items-center justify-center overflow-hidden rounded-md mt-4">
                 <Image
-                  src={bookId === 1 ? "/bookA.png" : bookId === 2 ? "/bookB.jpg" : "/defaultBook.png"}
+                  src={bookId === 1 ? "/bookA.png" : bookId === 2 ? "/bookB.jpg" : "/bookA.png"}
                   alt="gift"
                   width={210}
                   height={297}
