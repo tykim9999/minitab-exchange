@@ -104,5 +104,5 @@ body {
 }
 
 .animate-gradient {
-  animation: gradientAnimation 7s ease infinite;
+  animation: gradientAnimation 12s ease infinite;
 }
