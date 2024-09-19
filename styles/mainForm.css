@@ -30,7 +30,7 @@
   width: 290px;
   color: #4F4F4F;
   font-size: 14px;
-  font-weight: bolder;
+  /* font-weight: 400; */
   line-height: 2.3; /* 줄 간 간격을 2배로 설정 */
 }
 
@@ -43,7 +43,7 @@
     border-radius: 15px;
     padding: 0 10px;
     color: #000;
-    font-size: 12px;
+    font-size: 16px;
   }
   
   .text {
@@ -53,7 +53,7 @@
     border-radius: 15px;
     padding: 10px 10px;
     color: #000;
-    font-size: 12px;
+    font-size: 16px;
   }
   
   .submitButton{
@@ -108,11 +108,13 @@
 /* 예 버튼 스타일 */
 .button-yes {
   background: linear-gradient(to right, #80d0c7, #4db6ac);
+  border-radius: 10px;
 }
 
 /* 아니오 버튼 스타일 */
 .button-no {
   background: linear-gradient(to right, #f9a1a1, #e57373);
+  border-radius: 10px;
 }
 
 .button-no:hover {

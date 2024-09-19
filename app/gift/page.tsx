@@ -75,7 +75,7 @@ export default function GiftPage() {
       style={{ backgroundColor: "#1B3C71" }}
     >
       {/* Main content */}
-      <main className="flex flex-col gap-8 row-start-2 items-center z-10 overflow-x-hidden">
+      <main className="flex flex-col  row-start-2 items-center z-10 overflow-x-hidden">
         <div className="flex justify-center items-center animate__animated animate__slideInDown">
           <Image
             src="/mainQR.jpg" // 이미지 경로
@@ -148,8 +148,8 @@ export default function GiftPage() {
           </div>
 
           <div
-            className="mt-10 w-80 h-14 font-bold bg-red-600 text-white text-center flex items-center justify-center rounded-lg animate__animated animate__headShake"
-            style={{ animationDelay: "1.1s", animationDuration: "2.0s" }}
+            className=" w-80 h-14 font-bold bg-red-600 text-white text-center flex items-center justify-center rounded-lg animate__animated animate__headShake"
+            style={{ animationDelay: "1.1s", animationDuration: "2.0s", borderRadius:"10px" }}
           >
             본 화면을 이벤트 담당자에게 보여주세요!
           </div>
@@ -255,6 +255,7 @@ export default function GiftPage() {
                   width: "250px", // 이미지의 가로 길이와 일치시키기
                   padding: "0.75rem", // 패딩 조정
                   textAlign: "center", // 텍스트 중앙 정렬
+                  borderRadius: "10px"
                 }}
               >
                 닫기
