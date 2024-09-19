@@ -90,3 +90,19 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradientAnimation 7s ease infinite;
+}
