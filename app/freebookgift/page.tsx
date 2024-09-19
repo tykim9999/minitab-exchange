@@ -32,7 +32,7 @@ export default function Home() {
         style={{
           backgroundSize: "400% 400%",
           backgroundImage:
-            "linear-gradient(288deg, rgba(26,46,91,100) 3%, rgba(60,132,206,1) 58%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
+            "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
           height: "calc(var(--vh, 1vh) * 100)",
         }}
       >
