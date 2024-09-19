@@ -51,6 +51,7 @@ export default function Home() {
   className="rounded-lg shadow-lg w-full h-auto"
   style={{ maxHeight: "30vh" }}
 />
+
         </div>
 
         {/* 폼 컨테이너 */}

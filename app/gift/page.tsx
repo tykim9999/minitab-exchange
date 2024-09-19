@@ -12,12 +12,27 @@ export const dynamic = "force-dynamic";
 export default function GiftPage() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isImageVisible, setIsImageVisible] = useState(false);
-  const [isFireworksVisible, setIsFireworksVisible] = useState(true); // 기본 불꽃놀이
-  const [isCelebrationFireworks, setIsCelebrationFireworks] = useState(false); // 추가 불꽃놀이
+  const [isFireworksVisible, setIsFireworksVisible] = useState(true);
+  const [isCelebrationFireworks, setIsCelebrationFireworks] = useState(false);
   const fireworksRef = useRef<FireworksHandlers>(null);
-  const [winnerStatus, setWinnerStatus] = useState<string>("X"); // 기본값은 'X'
-  const [winnerName, setWinnerName] = useState<string>("당첨자"); // 기본값은 '당첨자'
+  const [winnerStatus, setWinnerStatus] = useState<string>("X");
+  const [winnerName, setWinnerName] = useState<string>("당첨자");
   const [bookId, setBookId] = useState<number | null>(null);
+
+  useEffect(() => {
+    // 뷰포트 높이 계산 및 CSS 변수 설정
+    const setViewportHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    };
+
+    setViewportHeight();
+    window.addEventListener("resize", setViewportHeight);
+
+    return () => {
+      window.removeEventListener("resize", setViewportHeight);
+    };
+  }, []);
 
   useEffect(() => {
     // 세션 스토리지에서 값 가져오기
@@ -41,11 +56,10 @@ export default function GiftPage() {
 
     // user_id로 API 호출해서 이름 가져오기
     if (userIdFromSession) {
-      // 헤더에 userId를 포함하여 GET 요청
       fetch("/api/getUserName", {
         method: "GET",
         headers: {
-          "user-id": userIdFromSession, // 헤더에 userId를 추가
+          "user-id": userIdFromSession,
         },
       })
         .then((res) => res.json())
@@ -59,7 +73,7 @@ export default function GiftPage() {
         });
     }
 
-    // 만약 winnerStatus가 'O'라면 팝업과 추가 불꽃놀이 실행
+    // 당첨자 처리
     if (status === "O") {
       setIsImageVisible(true);
       setIsPopupVisible(true);
@@ -68,46 +82,53 @@ export default function GiftPage() {
         setIsCelebrationFireworks(false); // 3초 후 추가 불꽃놀이 종료
       }, 3000);
     }
-  }, []); // 빈 배열을 의존성으로 설정하여 컴포넌트 마운트 시에만 실행
+  }, []);
+
   return (
     <div
-    className="h-screen flex flex-col items-center justify-center overflow-hidden"
-    style={{ backgroundColor: "#1B3C71" }}
+      className="flex flex-col items-center justify-center overflow-hidden"
+      style={{
+        backgroundColor: "#1B3C71",
+        height: "calc(var(--vh, 1vh) * 100)",
+      }}
     >
       {/* Main content */}
-      <main className="flex flex-col  row-start-2 items-center z-10 overflow-x-hidden">
-        <div className="flex justify-center items-center animate__animated animate__slideInDown">
+      <main
+        className="flex flex-col items-center w-full max-w-md px-4 relative"
+        style={{ height: "100%" }}
+      >
+        {/* 이미지 */}
+        <div className="flex justify-center items-center w-full">
           <Image
-            src="/mainQR.jpg" // 이미지 경로
+            src="/mainQR.jpg"
             alt="2024 Minitab Exchange"
-            width={500} // 원하는 가로 크기 (px 단위로 조정 가능)
-            height={300} // 원하는 세로 크기 (px 단위로 조정 가능)
-            className="rounded-lg shadow-lg" // 이미지에 테두리나 그림자 추가 가능
+            width={500}
+            height={300}
+            className="rounded-lg shadow-lg w-full h-auto"
+            style={{ maxHeight: "30vh" }}
           />
         </div>
 
         <ContextMenu>
-          <div className="gap-4">
+          <div className="gap-2 flex flex-col items-center mt-2">
             <ContextMenuTrigger>
               {/* 스타벅스 이미지: 당첨자에게만 표시 */}
               {isImageVisible && winnerStatus === "O" ? (
                 <div className="relative flex flex-col items-center">
                   {/* 왕관 이모티콘 */}
-                  <div className="absolute top-[-35px] text-4xl">👑</div>
+                  <div className="absolute top-[-25px] text-2xl">👑</div>
                   {/* 스타벅스 이미지 */}
                   <Image
                     src="/starbucks.png"
                     alt="스타벅스 기프티콘 이미지"
-                    layout="intrinsic"
                     width={100}
                     height={50}
-                    objectFit="contain"
+                    className="object-contain"
                   />
                 </div>
-              ) : (
-                <div className="hidden" /> // 이미지가 없는 경우 숨기기
-              )}
+              ) : null}
 
+              {/* 책 이미지 */}
               <div className="flex items-center justify-center">
                 {bookId === 1 ? (
                   <Image
@@ -115,7 +136,8 @@ export default function GiftPage() {
                     alt="Book A"
                     width={210}
                     height={297}
-                    className="flex items-center justify-center"
+                    className="w-full h-auto"
+                    style={{ maxHeight: "40vh" }}
                   />
                 ) : bookId === 2 ? (
                   <Image
@@ -123,7 +145,8 @@ export default function GiftPage() {
                     alt="Book B"
                     width={210}
                     height={297}
-                    className="flex items-center justify-center"
+                    className="w-full h-auto"
+                    style={{ maxHeight: "40vh" }}
                   />
                 ) : (
                   <p>데이터가 없습니다</p>
@@ -131,13 +154,14 @@ export default function GiftPage() {
               </div>
             </ContextMenuTrigger>
 
-            <div className="text-1xl text-right font-bold animate__animated animate__slideInDown mt-4">
+            {/* 책 제목 및 저자 */}
+            <div className="text-lg text-center font-bold mt-2">
               {bookId === 1
                 ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
                 : bookId === 2
                 ? "Minitab 공정데이터 분석방법론"
                 : "도서 정보 없음"}
-              <p className="text-sm text-right mt-2">
+              <p className="text-sm text-right mt-1">
                 {bookId === 1
                   ? "by 신용균, 이은지"
                   : bookId === 2
@@ -145,13 +169,18 @@ export default function GiftPage() {
                   : "정보 없음"}
               </p>
             </div>
-          </div>
 
-          <div
-            className=" w-80 h-14 font-bold bg-red-600 text-white text-center flex items-center justify-center rounded-lg animate__animated animate__headShake"
-            style={{ animationDelay: "1.1s", animationDuration: "2.0s", borderRadius:"10px" }}
-          >
-            본 화면을 이벤트 담당자에게 보여주세요!
+            {/* 안내 메시지 */}
+            <div
+              className="w-full max-w-xs h-12 font-bold bg-red-600 text-white flex items-center justify-center rounded-lg mt-2"
+              style={{
+                animationDelay: "1.1s",
+                animationDuration: "2.0s",
+                borderRadius: "10px",
+              }}
+            >
+              본 화면을 이벤트 담당자에게 보여주세요!
+            </div>
           </div>
         </ContextMenu>
 
@@ -198,7 +227,6 @@ export default function GiftPage() {
               className="bg-white p-6 rounded-2xl shadow-2xl text-center"
               style={{
                 width: "80vw",
-                height: "auto",
                 maxWidth: "450px",
                 maxHeight: "550px",
                 display: "flex",
@@ -209,39 +237,30 @@ export default function GiftPage() {
               }}
             >
               {/* 축하 메시지 */}
-              <h2 className="text-3xl font-extrabold mb-2 text-gray-800">
+              <h2 className="text-2xl font-extrabold mb-2 text-gray-800">
                 🎉 {winnerName}님 🎉
               </h2>
-              <h3
-                className="text-1xl font-extrabold text-black"
-                style={{
-                  marginTop: "15px",
-                }}
-              >
+              <h3 className="text-lg font-extrabold text-black mt-2">
                 스타벅스 기프티콘 5만원권에 <br />
-                <span className="text-1xl font-extrabold text-black">
-                  당첨 되셨습니다!
-                </span>
+                당첨 되셨습니다!
               </h3>
 
               {/* 이미지 컨테이너 */}
               <div
-                className="relative bg-gray-200 mb-6 rounded-lg overflow-hidden"
+                className="relative bg-gray-200 mb-4 rounded-lg overflow-hidden mt-4"
                 style={{
                   width: "250px",
                   height: "160px",
                   display: "flex",
                   justifyContent: "center",
-                  marginTop: "20px",
                 }}
               >
                 <Image
                   src="/starbucks.png"
                   alt="스타벅스 기프티콘 이미지"
-                  layout="intrinsic"
                   width={250}
                   height={250}
-                  objectFit="contain"
+                  className="object-contain"
                 />
               </div>
 
@@ -250,12 +269,12 @@ export default function GiftPage() {
                 className="bg-black text-white font-semibold rounded-full shadow-lg hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={() => setIsPopupVisible(false)}
                 style={{
-                  fontSize: "1rem", // 폰트 크기를 작게 조정
+                  fontSize: "1rem",
                   lineHeight: "1.25rem",
-                  width: "250px", // 이미지의 가로 길이와 일치시키기
-                  padding: "0.75rem", // 패딩 조정
-                  textAlign: "center", // 텍스트 중앙 정렬
-                  borderRadius: "10px"
+                  width: "250px",
+                  padding: "0.75rem",
+                  textAlign: "center",
+                  borderRadius: "10px",
                 }}
               >
                 닫기
