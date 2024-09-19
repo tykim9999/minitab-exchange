@@ -44,7 +44,7 @@ export default function Home() {
           style={{ maxHeight: "30vh" }}
         >
           <Image
-            src="/mainQR.jpg"
+            src="/mainBanner.jpg"
             alt="2024 Minitab Exchange"
             width={500}
             height={300}

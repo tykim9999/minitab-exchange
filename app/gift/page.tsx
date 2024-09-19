@@ -116,7 +116,7 @@ export default function GiftPage() {
         {/* 이미지 */}
         <div className="flex justify-center items-center w-full">
           <Image
-            src="/mainQR.jpg"
+            src="/mainBanner.jpg"
             alt="2024 Minitab Exchange"
             width={500}
             height={300}

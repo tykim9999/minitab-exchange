@@ -44,7 +44,7 @@ export default function Home() {
           {/* 이미지 */}
           <div className="w-full relative" style={{ maxHeight: "30vh", zIndex: 10 }}>
             <Image
-              src="/mainQR.jpg"
+              src="/mainBanner.jpg"
               alt="2024 Minitab Exchange"
               width={500}
               height={300}
