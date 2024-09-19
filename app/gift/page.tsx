@@ -136,8 +136,8 @@ export default function GiftPage() {
                     alt="Book A"
                     width={210}
                     height={297}
-                    className="w-full h-auto"
-                    style={{ maxHeight: "40vh" }}
+                    className="w-auto h-auto"
+                    style={{ maxHeight: "40vh", minHeight :"30vh" }}
                   />
                 ) : bookId === 2 ? (
                   <Image
@@ -145,7 +145,7 @@ export default function GiftPage() {
                     alt="Book B"
                     width={210}
                     height={297}
-                    className="w-full h-auto"
+                    className="w-auto h-auto"
                     style={{ maxHeight: "40vh" }}
                   />
                 ) : (
@@ -177,6 +177,8 @@ export default function GiftPage() {
                 animationDelay: "1.1s",
                 animationDuration: "2.0s",
                 borderRadius: "10px",
+                paddingLeft:"10px",
+                paddingRight:"10px"
               }}
             >
               본 화면을 이벤트 담당자에게 보여주세요!
@@ -238,7 +240,7 @@ export default function GiftPage() {
             >
               {/* 축하 메시지 */}
               <h2 className="text-2xl font-extrabold mb-2 text-gray-800">
-                🎉 {winnerName}님 🎉
+                 {winnerName}님 
               </h2>
               <h3 className="text-lg font-extrabold text-black mt-2">
                 스타벅스 기프티콘 5만원권에 <br />

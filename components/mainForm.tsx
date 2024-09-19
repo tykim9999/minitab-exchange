@@ -136,19 +136,17 @@ export function MainForm() {
     <div className="popup-overlay">
       <div className="popup-content">
         <div className="agree" style={{ maxWidth: "300px", width: "100%" }}>
-          <p className="consent-title">
-            ※ 개인정보 처리에 관한 동의 여부
-          </p>
+          <p className="consent-title">※ 개인정보 처리에 관한 동의 여부</p>
           <p className="agree-text">
-          귀하는 (주)이레테크 데이터랩스에서 수집한 귀하의 개인정보 활용 업무 처리에 동의합니다. 
-          이벤트 진행 및 당첨자 선정, 마케팅 자료 활용 목적 외에 다른 목적으로 사용하지 않습니다. 
-          귀하는 개인정보의 수집 및 이용에 대한 동의를 거부할 수 있으며, 
-          <span style={{ fontWeight: "bolder" }}>
-      동의를 거부할 경우 이벤트 참여 및 경품 수령이 제한될 수 있습니다.
-    </span>
+            귀하는 (주)이레테크 데이터랩스에서 수집한 귀하의 개인정보 활용 업무
+            처리에 동의합니다. 이벤트 진행 및 당첨자 선정, 마케팅 자료 활용 목적
+            외에 다른 목적으로 사용하지 않습니다. 귀하는 개인정보의 수집 및
+            이용에 대한 동의를 거부할 수 있으며, 
+            <span style={{ fontWeight: "bolder" }}>
+  {" "}동의를 거부할 경우 이벤트 참여 및 경품 수령이 제한될 수 있습니다.
+</span>
           </p>
         </div>
-
 
         <div className="popup-buttons ">
           <button
