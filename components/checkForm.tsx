@@ -136,7 +136,7 @@ export function CheckForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="input-submit">
           <p className="members">이름</p>
-          <div style={{ marginLeft: `40px` }}>
+          <div>
             <label htmlFor="members_name" className="text-right"></label>
             <input
               id="members_name"
@@ -149,7 +149,7 @@ export function CheckForm() {
           </div>
 
           <p className="members">전화번호</p>
-          <div style={{ marginLeft: `40px` }}>
+          <div>
             <label
               htmlFor="members_phone_number"
               className="text-right"
