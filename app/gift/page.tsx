@@ -21,17 +21,17 @@ export default function GiftPage() {
 
   useEffect(() => {
     // 세션 스토리지에서 값 가져오기
-    const userIdFromSession = sessionStorage.getItem('userId');
-    const status = sessionStorage.getItem('winnerStatus') || "X";
-    const bookIdFromSession = sessionStorage.getItem('bookId');
-  
+    const userIdFromSession = sessionStorage.getItem("userId");
+    const status = sessionStorage.getItem("winnerStatus") || "X";
+    const bookIdFromSession = sessionStorage.getItem("bookId");
+
     setWinnerStatus(status);
     setBookId(bookIdFromSession ? parseInt(bookIdFromSession) : null);
 
     // 콘솔에 출력
-    console.log('User ID:', userIdFromSession);
-    console.log('Winner Status:', status);
-    console.log('Book ID from Session:', bookIdFromSession);
+    console.log("User ID:", userIdFromSession);
+    console.log("Winner Status:", status);
+    console.log("Book ID from Session:", bookIdFromSession);
 
     // 불꽃놀이 설정
     setIsFireworksVisible(true);
@@ -42,10 +42,10 @@ export default function GiftPage() {
     // user_id로 API 호출해서 이름 가져오기
     if (userIdFromSession) {
       // 헤더에 userId를 포함하여 GET 요청
-      fetch('/api/getUserName', {
-        method: 'GET',
+      fetch("/api/getUserName", {
+        method: "GET",
         headers: {
-          'user-id': userIdFromSession, // 헤더에 userId를 추가
+          "user-id": userIdFromSession, // 헤더에 userId를 추가
         },
       })
         .then((res) => res.json())
@@ -76,7 +76,6 @@ export default function GiftPage() {
     >
       {/* Main content */}
       <main className="flex flex-col gap-8 row-start-2 items-center z-10 overflow-x-hidden">
-        
         <div className="flex justify-center items-center animate__animated animate__slideInDown">
           <Image
             src="/mainQR.jpg" // 이미지 경로
@@ -86,18 +85,15 @@ export default function GiftPage() {
             className="rounded-lg shadow-lg" // 이미지에 테두리나 그림자 추가 가능
           />
         </div>
-  
+
         <ContextMenu>
           <div className="gap-4">
             <ContextMenuTrigger>
-  
               {/* 스타벅스 이미지: 당첨자에게만 표시 */}
               {isImageVisible && winnerStatus === "O" ? (
                 <div className="relative flex flex-col items-center">
                   {/* 왕관 이모티콘 */}
-                  <div className="absolute top-[-35px] text-4xl">
-                    👑
-                  </div>
+                  <div className="absolute top-[-35px] text-4xl">👑</div>
                   {/* 스타벅스 이미지 */}
                   <Image
                     src="/starbucks.png"
@@ -111,30 +107,46 @@ export default function GiftPage() {
               ) : (
                 <div className="hidden" /> // 이미지가 없는 경우 숨기기
               )}
-  
-              <div className="flex items-center justify-center overflow-hidden rounded-md mt-4">
-                <Image
-                  src={bookId === 1 ? "/bookA.png" : bookId === 2 ? "/bookB.jpg" : "/bookA.png"}
-                  alt="gift"
-                  width={210}
-                  height={297}
-                  className="flex items-center justify-center"
-                />
+
+              <div className="flex items-center justify-center">
+                {bookId === 1 ? (
+                  <Image
+                    src="/bookA.png"
+                    alt="Book A"
+                    width={210}
+                    height={297}
+                    className="flex items-center justify-center"
+                  />
+                ) : bookId === 2 ? (
+                  <Image
+                    src="/bookB.jpg"
+                    alt="Book B"
+                    width={210}
+                    height={297}
+                    className="flex items-center justify-center"
+                  />
+                ) : (
+                  <p>데이터가 없습니다</p>
+                )}
               </div>
             </ContextMenuTrigger>
-  
+
             <div className="text-1xl text-right font-bold animate__animated animate__slideInDown mt-4">
               {bookId === 1
                 ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
                 : bookId === 2
-                  ? "Minitab 공정데이터 분석방법론"
-                  : "도서 정보 없음"}
+                ? "Minitab 공정데이터 분석방법론"
+                : "도서 정보 없음"}
               <p className="text-sm text-right mt-2">
-                {bookId === 1 ? "by 신용균, 이은지" : bookId === 2 ? "by 김영일" : "정보 없음"}
+                {bookId === 1
+                  ? "by 신용균, 이은지"
+                  : bookId === 2
+                  ? "by 김영일"
+                  : "정보 없음"}
               </p>
             </div>
           </div>
-  
+
           <div
             className="mt-10 w-80 h-14 font-bold bg-red-600 text-white text-center flex items-center justify-center rounded-lg animate__animated animate__headShake"
             style={{ animationDelay: "1.1s", animationDuration: "2.0s" }}
@@ -200,10 +212,12 @@ export default function GiftPage() {
               <h2 className="text-3xl font-extrabold mb-2 text-gray-800">
                 🎉 {winnerName}님 🎉
               </h2>
-              <h3 className="text-1xl font-extrabold text-black"
+              <h3
+                className="text-1xl font-extrabold text-black"
                 style={{
                   marginTop: "15px",
-                }}>
+                }}
+              >
                 스타벅스 기프티콘 5만원권에 <br />
                 <span className="text-1xl font-extrabold text-black">
                   당첨 되셨습니다!
@@ -213,7 +227,13 @@ export default function GiftPage() {
               {/* 이미지 컨테이너 */}
               <div
                 className="relative bg-gray-200 mb-6 rounded-lg overflow-hidden"
-                style={{ width: "250px", height: "160px", display: "flex", justifyContent: "center", marginTop: "20px" }}
+                style={{
+                  width: "250px",
+                  height: "160px",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "20px",
+                }}
               >
                 <Image
                   src="/starbucks.png"
@@ -230,22 +250,19 @@ export default function GiftPage() {
                 className="bg-black text-white font-semibold rounded-full shadow-lg hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 onClick={() => setIsPopupVisible(false)}
                 style={{
-                  fontSize: '1rem', // 폰트 크기를 작게 조정
-                  lineHeight: '1.25rem',
-                  width: '250px', // 이미지의 가로 길이와 일치시키기
-                  padding: '0.75rem', // 패딩 조정
-                  textAlign: 'center', // 텍스트 중앙 정렬
+                  fontSize: "1rem", // 폰트 크기를 작게 조정
+                  lineHeight: "1.25rem",
+                  width: "250px", // 이미지의 가로 길이와 일치시키기
+                  padding: "0.75rem", // 패딩 조정
+                  textAlign: "center", // 텍스트 중앙 정렬
                 }}
               >
                 닫기
               </button>
-
             </div>
           </div>
         )}
-
       </main>
     </div>
   );
-
 }
