@@ -1,11 +1,18 @@
 /* mainform.css */
 
 .members{
-  margin-top: 20px; /* 위쪽 여백 */
+  margin-top: 20px;
   margin-left: 40px; 
-  color: black; /* 텍스트 색상 */
-  font-weight: bold; /* 굵은 텍스트 */
+  color: black;
+  font-weight: bold;
 }
+
+/* 입력 필드를 감싸는 컨테이너를 중앙 정렬 */
+.input-container {
+  text-align: center;
+}
+
+
 
 
   /* 팝업 내용 중앙 정렬 */
@@ -36,34 +43,39 @@
 
   
   
-  .input {
-    background-color: #E9E9E9;
-    width: 275px;
-    height: 45px;
-    border-radius: 15px;
-    padding: 0 10px;
-    color: #000;
-    font-size: 16px;
-  }
+.input {
+  background-color: #E9E9E9;
+  width: 275px;
+  height: 45px;
+  border-radius: 15px;
+  padding: 0 10px;
+  color: #000;
+  font-size: 16px;
+  margin: 0 auto; /* 중앙 정렬 */
+  display: block;
+}
+
+.text {
+  background-color: #E9E9E9;
+  width: 275px;
+  height: 75px;
+  border-radius: 15px;
+  padding: 10px 10px;
+  color: #000;
+  font-size: 16px;
+  margin: 0 auto; /* 중앙 정렬 */
+  display: block;
+}
   
-  .text {
-    background-color: #E9E9E9;
-    width: 275px;
-    height: 75px;
-    border-radius: 15px;
-    padding: 10px 10px;
-    color: #000;
-    font-size: 16px;
-  }
-  
-  .submitButton{
-    margin-left: 40px;
-    margin-bottom: 15px;
-    background-color: #2AA3FB;
-    width: 275px;
-    height: 45px;
-    border-radius: 10px;
-  }
+.submitButton{
+  margin-bottom: 15px;
+  background-color: #2AA3FB;
+  width: 275px;
+  height: 45px;
+  border-radius: 10px;
+  margin: 15PX auto; /* 중앙 정렬 */
+  display: block;
+}
 
   .agree{
     /* background-color: #000; */

@@ -172,12 +172,11 @@ export function MainForm() {
 
   return (
     <div>
-      {/* 제출 후 폼을 숨기고 팝업창을 표시 */}
       {!isSubmitted ? (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="input-submit">
             <p className="members">이름</p>
-            <div style={{ marginLeft: `40px` }}>
+            <div className="input-container">
               <label htmlFor="members_name" className="text-right"></label>
               <input
                 id="members_name"
@@ -185,97 +184,60 @@ export function MainForm() {
                 className="input"
                 placeholder="이름을 입력해주세요"
                 maxLength={10}
-                onInvalid={(e) => {
-                  (e.target as HTMLInputElement).setCustomValidity(
-                    "이름을 작성해주세요."
-                  );
-                }}
-                onInput={(e) => {
-                  (e.target as HTMLInputElement).setCustomValidity(""); // Clear the warning while typing
-                }}
                 required
               />
             </div>
 
             <p className="members">전화번호</p>
-            <div style={{ marginLeft: `40px` }}>
-              <label
-                htmlFor="members_phone_number"
-                className="text-right"
-              ></label>
+            <div className="input-container">
+              <label htmlFor="members_phone_number" className="text-right"></label>
               <input
                 id="members_phone_number"
                 {...form.register("members_phone_number")}
                 className="input"
                 placeholder="01012345678"
                 type="tel"
-                maxLength={11} // 최대 11자리 입력 가능
-                pattern="\d{11}" // 11자리 숫자만 허용
-                onInvalid={(e) => {
-                  (e.target as HTMLInputElement).setCustomValidity(
-                    "전화번호는 11자리 숫자여야 합니다."
-                  );
-                }}
-                onInput={(e) => {
-                  (e.target as HTMLInputElement).setCustomValidity(""); // 입력 중에는 경고를 초기화
-                }}
+                maxLength={11}
+                pattern="\d{11}"
                 required
               />
             </div>
 
             <p className="members">회사명</p>
-            <div style={{ marginLeft: `40px` }}>
+            <div className="input-container">
               <label htmlFor="members_company" className="text-right"></label>
               <input
                 id="members_company"
                 {...form.register("members_company")}
                 className="input"
                 placeholder="회사명을 입력해주세요"
-                maxLength={20} // 최대 20자리 입력 가능
-                onInvalid={(e) => {
-                  (e.target as HTMLInputElement).setCustomValidity(
-                    "회사명을 입력해주세요."
-                  );
-                }}
-                onInput={(e) => {
-                  (e.target as HTMLInputElement).setCustomValidity(""); // 입력 중에는 경고를 초기화
-                }}
+                maxLength={20}
                 required
               />
             </div>
 
             <p className="members">응원메세지</p>
-            <div style={{ marginLeft: `40px` }}>
+            <div className="input-container">
               <label htmlFor="members_message" className="text-right"></label>
               <textarea
                 id="members_message"
                 {...form.register("members_message")}
                 className="text"
                 placeholder="300자 이내로 작성해주세요!"
-                maxLength={300} // 최대 300자리 입력 가능
-                onInvalid={(e) => {
-                  (e.target as HTMLTextAreaElement).setCustomValidity(
-                    "응원메세지를 입력해주세요."
-                  );
-                }}
-                onInput={(e) => {
-                  (e.target as HTMLTextAreaElement).setCustomValidity(""); // 입력 중에는 경고를 초기화
-                }}
-                rows={5} // 기본 5줄 크기로 설정
+                maxLength={300}
+                rows={5}
                 required
               />
             </div>
           </div>
-          <div className="">
+          <div>
             <button
               type="submit"
-              className="submitButton flex items-center justify-center" // flex와 justify-center를 추가하여 중앙 정렬
+              className="submitButton flex items-center justify-center"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <div className="flex items-center justify-center">
-                  {" "}
-                  {/* 중앙 정렬을 위해 justify-center 추가 */}
                   <Spinner />
                   <span className="ml-2">제출 중...</span>
                 </div>
@@ -287,11 +249,11 @@ export function MainForm() {
         </form>
       ) : null}
 
-      {/* 팝업창이 표시될 때 */}
       {showPopup && <Popup />}
     </div>
   );
 }
+
 
 // 로딩 스피너 컴포넌트
 function Spinner() {
