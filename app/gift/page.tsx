@@ -16,7 +16,7 @@ export default function GiftPage() {
   const [isCelebrationFireworks, setIsCelebrationFireworks] = useState(false);
   const fireworksRef = useRef<FireworksHandlers>(null);
   const [winnerStatus, setWinnerStatus] = useState<string>("X");
-  const [winnerName, setWinnerName] = useState<string>("당첨자");
+  const [winnerName, setWinnerName] = useState<string | null>(null);
   const [bookId, setBookId] = useState<number | null>(null);
 
   useEffect(() => {
@@ -178,7 +178,8 @@ export default function GiftPage() {
                 animationDuration: "2.0s",
                 borderRadius: "10px",
                 paddingLeft:"10px",
-                paddingRight:"10px"
+                paddingRight:"10px",
+                marginBottom:"15px"
               }}
             >
               본 화면을 이벤트 담당자에게 보여주세요!
@@ -240,7 +241,7 @@ export default function GiftPage() {
             >
               {/* 축하 메시지 */}
               <h2 className="text-2xl font-extrabold mb-2 text-gray-800">
-                 {winnerName}님 
+              {winnerName + "님"}
               </h2>
               <h3 className="text-lg font-extrabold text-black mt-2">
                 스타벅스 기프티콘 5만원권에 <br />

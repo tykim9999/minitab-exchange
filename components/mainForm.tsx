@@ -12,52 +12,30 @@ interface FormValues {
 export function MainForm() {
   const form = useForm<FormValues>();
   const [showPopup, setShowPopup] = useState(false); // 팝업창 표시 상태
-  const [userId, setUserId] = useState<string | null>(null); // DB에 저장된 사용자의 ID를 추적
   const [isSubmitted, setIsSubmitted] = useState(false); // 제출 후 인풋 숨기기
   const [isSubmitting, setIsSubmitting] = useState(false); // 로딩 상태 관리
   const [loading, setLoading] = useState(false); // 로딩 상태 관리
-
+  const [formValues, setFormValues] = useState<FormValues | null>(null); // 폼 데이터를 저장할 상태
 
   // 컴포넌트가 마운트되었을 때 세션에서 userId와 winnerStatus 값을 가져옵니다.
   useEffect(() => {
-    const storedUserId = sessionStorage.getItem('userId');
-    const storedWinnerStatus = sessionStorage.getItem('winnerStatus');
-    const storedBookId = sessionStorage.getItem('bookId');
-    setUserId(storedUserId);
+    const storedUserId = sessionStorage.getItem("userId");
+    const storedWinnerStatus = sessionStorage.getItem("winnerStatus");
+    const storedBookId = sessionStorage.getItem("bookId");
 
     // 콘솔에 출력
-    console.log('User ID:', storedUserId);
-    console.log('Winner Status:', storedWinnerStatus);
-    console.log('Book ID :', storedBookId);
+    console.log("User ID:", storedUserId);
+    console.log("Winner Status:", storedWinnerStatus);
+    console.log("Book ID :", storedBookId);
   }, []);
 
   // 폼 제출 처리
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true); // 제출 시작 시 로딩 활성화
     try {
-      const response = await fetch("/api/members/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (response.ok) {
-        const result = await response.json();
-        sessionStorage.setItem('userId', result.userId || ''); // 사용자 ID를 문자열로 저장
-        sessionStorage.setItem('winnerStatus', result.winner_status || ''); // 당첨 상태를 문자열로 저장
-        sessionStorage.setItem('bookId', result.members_book_id || ''); // 당첨 상태를 문자열로 저장
-        setUserId(result.userId || ''); // 상태 업데이트
-        setIsSubmitted(true); // 폼을 숨기고 팝업을 표시
-        setShowPopup(true);
-      } else {
-        const result = await response.json();
-        alert(`Error: ${result.error}`);
-      }
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("회원 정보 저장에 실패했습니다.");
+      setFormValues(values); // 폼 데이터를 상태에 저장
+      setIsSubmitted(true); // 폼을 숨기고 팝업을 표시
+      setShowPopup(true);
     } finally {
       setIsSubmitting(false); // 제출이 끝나면 로딩 비활성화
     }
@@ -67,64 +45,38 @@ export function MainForm() {
   const handleConsent = async (consent: boolean) => {
     if (loading) return; // 로딩 중일 때는 아무 작업도 하지 않음
     setLoading(true); // 버튼 클릭 시 로딩 상태로 설정
-    const consentValue = consent ? "O" : "X"; // 'O' for 동의, 'X' for 비동의
-    console.log("Sending userId:", userId, "and consent value:", consentValue); // 전송 전에 로그 출력
 
     if (!consent) {
-      // "아니요" 선택 시 해당 회원 데이터를 삭제
-      try {
-        const response = await fetch("/api/deleteMembers/", {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId }), // userId를 body에 포함
-        });
-
-        if (response.ok) {
-          // alert("회원 정보가 삭제되었습니다.");
-          window.location.reload(); // 첫 화면으로 리다이렉트
-        } else {
-          // alert("회원 정보 삭제에 실패했습니다.");
-        }
-      } catch (error) {
-        console.error("Error deleting member data:", error);
-        alert("회원 정보 삭제 중 오류가 발생했습니다.");
-      }
+      // "아니요" 선택 시 페이지 리로드
+      window.location.reload(); // 첫 화면으로 리다이렉트
     } else {
-      // "예" 선택 시 개인정보 제공 동의 여부 업데이트
-      const consentValue = "O";
-
+      // "예" 선택 시 폼 데이터를 서버로 전송하여 저장
       try {
-        const response = await fetch("/api/privacyAgree/", {
-          method: "PUT",
+        const response = await fetch("/api/members/", {
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userId, privacy_consent: consentValue }),
+          body: JSON.stringify({
+            ...formValues,
+            privacy_consent: "O", // 개인정보 동의 여부 추가
+          }),
         });
 
         if (response.ok) {
-          // const result = await response.json();
-          // alert("개인정보 제공 동의 여부가 저장되었습니다.");
+          const result = await response.json();
+          sessionStorage.setItem("userId", result.userId || ""); // 사용자 ID를 문자열로 저장
+          sessionStorage.setItem("winnerStatus", result.winner_status || ""); // 당첨 상태를 문자열로 저장
+          sessionStorage.setItem("bookId", result.members_book_id || ""); // 당첨 상태를 문자열로 저장
           setShowPopup(false); // 팝업창 닫기
-          // members_book_id에 따라 페이지 리다이렉트
-          // if (membersBookId === 1) {
-          //   window.location.href = "/gift";
-          //   // 책 페이지로 이동하면서 쿼리 파라미터로 값 전달
-          //   // window.location.href = `/gift?userId=${userId}&winner_status=${winnerStatus}`;
-          // } else if (membersBookId === 2) {
-          //   window.location.href = "/gift2";
-          //   // window.location.href = `/gift2?userId=${userId}&winner_status=${winnerStatus}`;
-          // }
           window.location.href = "/gift";
         } else {
           const result = await response.json();
           alert(`Error: ${result.error}`);
         }
       } catch (error) {
-        console.error("Error updating consent:", error);
-        alert("개인정보 제공 동의 여부 저장에 실패했습니다.");
+        console.error("Error saving data:", error);
+        alert("회원 정보 저장에 실패했습니다.");
       } finally {
         setLoading(false);
       }
@@ -141,10 +93,10 @@ export function MainForm() {
             귀하는 (주)이레테크 데이터랩스에서 수집한 귀하의 개인정보 활용 업무
             처리에 동의합니다. 이벤트 진행 및 당첨자 선정, 마케팅 자료 활용 목적
             외에 다른 목적으로 사용하지 않습니다. 귀하는 개인정보의 수집 및
-            이용에 대한 동의를 거부할 수 있으며, 
+            이용에 대한 동의를 거부할 수 있으며,
             <span style={{ fontWeight: "bolder" }}>
-  {" "}동의를 거부할 경우 이벤트 참여 및 경품 수령이 제한될 수 있습니다.
-</span>
+              {" "}동의를 거부할 경우 이벤트 참여 및 경품 수령이 제한될 수 있습니다.
+            </span>
           </p>
         </div>
 
@@ -170,6 +122,7 @@ export function MainForm() {
 
   return (
     <div>
+      {/* 제출 후 폼을 숨기고 팝업창을 표시 */}
       {!isSubmitted ? (
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className="input-submit">
@@ -240,18 +193,18 @@ export function MainForm() {
                   <span className="ml-2">제출 중...</span>
                 </div>
               ) : (
-                "제출"
+                "다음"
               )}
             </button>
           </div>
         </form>
       ) : null}
 
+      {/* 팝업창이 표시될 때 */}
       {showPopup && <Popup />}
     </div>
   );
 }
-
 
 // 로딩 스피너 컴포넌트
 function Spinner() {

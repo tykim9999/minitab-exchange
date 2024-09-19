@@ -130,14 +130,7 @@
   /* 최소 너비 설정 */
 }
 
-.button:hover {
-  background: linear-gradient(to right, #66c2c9, #009688);
-  /* 호버 시 색상 변경 */
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
-  /* 호버 시 그림자 변경 */
-  transform: scale(1.05);
-  /* 호버 시 크기 확대 */
-}
+
 
 .button:disabled {
   opacity: 0.5;
