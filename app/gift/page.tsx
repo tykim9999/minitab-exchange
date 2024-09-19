@@ -71,8 +71,8 @@ export default function GiftPage() {
   }, []); // 빈 배열을 의존성으로 설정하여 컴포넌트 마운트 시에만 실행
   return (
     <div
-      className="min-h-screen grid grid-rows-[auto_1fr_auto] items-start justify-items-center"
-      style={{ backgroundColor: "#1B3C71" }}
+    className="h-screen flex flex-col items-center justify-center overflow-hidden"
+    style={{ backgroundColor: "#1B3C71" }}
     >
       {/* Main content */}
       <main className="flex flex-col  row-start-2 items-center z-10 overflow-x-hidden">

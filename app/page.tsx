@@ -4,25 +4,29 @@ import Image from "next/image";
 import "animate.css";
 import { MainForm } from "@components/mainForm";
 
-// Main component for the home page
 export default function Home() {
   return (
-      <div className="min-h-screen grid grid-rows-[auto_1fr_auto] items-start justify-items-center" style={{ backgroundColor: '#1B3C71' }}>
-        {/* Main content */}  {/* Main content */}
-      <main className="flex flex-col  row-start-2 items-center z-10 overflow-x-hidden">
-        <div className="flex justify-center items-center animate__animated animate__slideInDown">
+    <div
+      className="h-screen flex flex-col items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "#1B3C71" }}
+    >
+      {/* 메인 컨텐츠 */}
+      <main className="flex flex-col items-center w-full max-w-md px-4 overflow-y-auto" style={{ maxHeight: "100vh" }}>
+        {/* 이미지 */}
+        <div className="w-full">
           <Image
-            src="/mainQR.jpg" // 이미지 경로
+            src="/mainQR.jpg"
             alt="2024 Minitab Exchange"
-            width={500} // 원하는 가로 크기 (px 단위로 조정 가능)
-            height={300} // 원하는 세로 크기 (px 단위로 조정 가능)
-            className="rounded-lg shadow-lg" // 이미지에 테두리나 그림자 추가 가능
+            width={500}
+            height={300}
+            className="rounded-lg shadow-lg w-full h-auto"
           />
         </div>
 
-        <div style={{backgroundColor: `white`, width:`350px`, height:`500px`, borderRadius:`15px`}}>
-        {/* Main form component */}
-        <MainForm />
+        {/* 폼 컨테이너 */}
+        <div className="bg-white w-full rounded-lg mt-4 overflow-y-auto" style={{ maxHeight: "calc(100vh - 이미지 높이 - 여백)" }}>
+          {/* Main form component */}
+          <MainForm />
         </div>
       </main>
     </div>
