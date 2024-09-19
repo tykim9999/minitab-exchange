@@ -14,13 +14,13 @@ export default function GiftPage() {
   const [isImageVisible, setIsImageVisible] = useState(false);
   const [isFireworksVisible, setIsFireworksVisible] = useState(true);
   const [isCelebrationFireworks, setIsCelebrationFireworks] = useState(false);
+  const [loading, setLoading] = useState(true); // 로딩 상태 추가
   const fireworksRef = useRef<FireworksHandlers>(null);
   const [winnerStatus, setWinnerStatus] = useState<string>("X");
-  const [winnerName, setWinnerName] = useState<string | null>(null);
+  const [winnerName, setWinnerName] = useState<string | null>();
   const [bookId, setBookId] = useState<number | null>(null);
 
   useEffect(() => {
-    // 뷰포트 높이 계산 및 CSS 변수 설정
     const setViewportHeight = () => {
       const vh = window.innerHeight * 0.01;
       document.documentElement.style.setProperty("--vh", `${vh}px`);
@@ -43,7 +43,6 @@ export default function GiftPage() {
     setWinnerStatus(status);
     setBookId(bookIdFromSession ? parseInt(bookIdFromSession) : null);
 
-    // 콘솔에 출력
     console.log("User ID:", userIdFromSession);
     console.log("Winner Status:", status);
     console.log("Book ID from Session:", bookIdFromSession);
@@ -54,7 +53,6 @@ export default function GiftPage() {
       setIsFireworksVisible(false); // 3초 후 기본 불꽃놀이 종료
     }, 3000);
 
-    // user_id로 API 호출해서 이름 가져오기
     if (userIdFromSession) {
       fetch("/api/getUserName", {
         method: "GET",
@@ -70,10 +68,14 @@ export default function GiftPage() {
         })
         .catch((error) => {
           console.error("Error fetching user name:", error);
+        })
+        .finally(() => {
+          setLoading(false); // 데이터가 모두 로드된 후 로딩 상태 종료
         });
+    } else {
+      setLoading(false); // userId가 없는 경우에도 로딩 상태 종료
     }
 
-    // 당첨자 처리
     if (status === "O") {
       setIsImageVisible(true);
       setIsPopupVisible(true);
@@ -84,15 +86,29 @@ export default function GiftPage() {
     }
   }, []);
 
+  if (loading) {
+    return null; // 로딩 중일 때 아무것도 표시하지 않음
+  }
+
   return (
     <div
-      className="flex flex-col items-center justify-center overflow-hidden"
+      className="flex flex-col items-center justify-center overflow-hidden animate-gradient"
       style={{
-        backgroundColor: "#1B3C71",
+        backgroundSize: "400% 400%",
+        backgroundImage:
+          "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
         height: "calc(var(--vh, 1vh) * 100)",
       }}
     >
-      {/* Main content */}
+      <div className="absolute inset-0 z-0 opacity-10 gradient">
+        <Image
+          src="/svg/circuit.svg"
+          layout="fill"
+          objectFit="cover"
+          alt="Circuit Background"
+          className="svg"
+        />
+      </div>
       <main
         className="flex flex-col items-center w-full max-w-md px-4 relative"
         style={{ height: "100%" }}
@@ -115,9 +131,7 @@ export default function GiftPage() {
               {/* 스타벅스 이미지: 당첨자에게만 표시 */}
               {isImageVisible && winnerStatus === "O" ? (
                 <div className="relative flex flex-col items-center">
-                  {/* 왕관 이모티콘 */}
                   <div className="absolute top-[-25px] text-2xl">👑</div>
-                  {/* 스타벅스 이미지 */}
                   <Image
                     src="/starbucks.png"
                     alt="스타벅스 기프티콘 이미지"
@@ -137,7 +151,7 @@ export default function GiftPage() {
                     width={210}
                     height={297}
                     className="w-auto h-auto"
-                    style={{ maxHeight: "40vh", minHeight :"30vh" }}
+                    style={{ maxHeight: "40vh", minHeight: "30vh" }}
                   />
                 ) : bookId === 2 ? (
                   <Image
@@ -170,16 +184,15 @@ export default function GiftPage() {
               </p>
             </div>
 
-            {/* 안내 메시지 */}
             <div
               className="w-full max-w-xs h-12 font-bold bg-red-600 text-white flex items-center justify-center rounded-lg mt-2"
               style={{
                 animationDelay: "1.1s",
                 animationDuration: "2.0s",
                 borderRadius: "10px",
-                paddingLeft:"10px",
-                paddingRight:"10px",
-                marginBottom:"15px"
+                paddingLeft: "10px",
+                paddingRight: "10px",
+                marginBottom: "15px",
               }}
             >
               본 화면을 이벤트 담당자에게 보여주세요!
@@ -187,7 +200,7 @@ export default function GiftPage() {
           </div>
         </ContextMenu>
 
-        {/* 초기 기본 불꽃놀이 */}
+        {/* 기본 불꽃놀이 */}
         {isFireworksVisible && (
           <Fireworks
             ref={fireworksRef}
@@ -235,13 +248,15 @@ export default function GiftPage() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                
+
                 justifyContent: "center",
-                textAlign: "center",
+                textAlign: "center"
               }}
             >
               {/* 축하 메시지 */}
               <h2 className="text-2xl font-extrabold mb-2 text-gray-800">
-              {winnerName + "님"}
+                {winnerName + "님"}
               </h2>
               <h3 className="text-lg font-extrabold text-black mt-2">
                 스타벅스 기프티콘 5만원권에 <br />
@@ -284,6 +299,7 @@ export default function GiftPage() {
               </button>
             </div>
           </div>
+
         )}
       </main>
     </div>

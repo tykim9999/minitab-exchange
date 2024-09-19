@@ -43,27 +43,27 @@ export default function Home() {
           className="w-full relative"
           style={{ maxHeight: "30vh" }}
         >
-         <Image
-  src="/mainQR.jpg"
-  alt="2024 Minitab Exchange"
-  width={500}
-  height={300}
-  className="rounded-lg shadow-lg w-full h-auto"
-  style={{ maxHeight: "30vh" }}
-/>
+          <Image
+            src="/mainQR.jpg"
+            alt="2024 Minitab Exchange"
+            width={500}
+            height={300}
+            className="rounded-lg shadow-lg w-full h-auto"
+            style={{ maxHeight: "30vh" }}
+          />
 
         </div>
 
         {/* 폼 컨테이너 */}
         <div
-  className="bg-white w-full rounded-lg mt-4 overflow-y-auto"
-  style={{
-    maxHeight: "calc(70vh - 1rem)", // 필요하다면 이 부분도 조정
-  }}
->
-  {/* Main form component */}
-  <MainForm />
-</div>
+          className="bg-white w-full rounded-lg mt-4 overflow-y-auto"
+          style={{
+            maxHeight: "calc(70vh - 1rem)", // 필요하다면 이 부분도 조정
+          }}
+        >
+          {/* Main form component */}
+          <MainForm />
+        </div>
 
       </main>
     </div>
