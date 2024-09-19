@@ -9,7 +9,7 @@ export default function Home() {
   return (
       <div className="min-h-screen grid grid-rows-[auto_1fr_auto] items-start justify-items-center" style={{ backgroundColor: '#1B3C71' }}>
         {/* Main content */}  {/* Main content */}
-      <main className="flex flex-col gap-8 row-start-2 items-center z-10 overflow-x-hidden">
+      <main className="flex flex-col  row-start-2 items-center z-10 overflow-x-hidden">
         <div className="flex justify-center items-center animate__animated animate__slideInDown">
           <Image
             src="/mainQR.jpg" // 이미지 경로

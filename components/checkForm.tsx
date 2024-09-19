@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "@styles/mainForm.css";
+import Swal from 'sweetalert2';
 
 interface FormValues {
   members_name: string;
@@ -39,11 +40,73 @@ export function CheckForm() {
         const result = await response.json();
 
         if (!result.success) {
-          alert("해당 이름과 전화번호로 등록된 당첨자가 없습니다.");
+          Swal.fire({
+            icon: 'warning',
+            title: '알림',
+            text: '해당 이름과 전화번호로 등록된\n당첨자가 없습니다.',
+            confirmButtonText: '확인',
+            buttonsStyling: false,
+            customClass: {
+              popup: 'my-popup-class',
+              title: 'my-title-class',
+              htmlContainer: 'my-text-class',
+              confirmButton: 'submitButton',
+            },
+            didOpen: (modal) => {
+              // 모달 스타일 적용
+              const popup = modal.querySelector('.my-popup-class');
+              if (popup instanceof HTMLElement) {
+                popup.style.borderRadius = '15px';
+                popup.style.padding = '30px';
+                popup.style.width = '400px';
+              }
+        
+              // 제목 스타일 적용
+              const title = modal.querySelector('.my-title-class');
+              if (title instanceof HTMLElement) {
+                title.style.fontSize = '24px';
+                title.style.fontWeight = 'bold';
+                title.style.color = '#000000';
+                title.style.textAlign = 'center';
+              }
+        
+              // 텍스트 스타일 적용
+              const text = modal.querySelector('.my-text-class');
+              if (text instanceof HTMLElement) {
+                text.style.color = '#000000';
+                text.style.fontSize = '18px';
+                text.style.fontWeight = 'normal';
+                text.style.textAlign = 'center';
+                text.style.whiteSpace = 'pre-line'; // 줄바꿈 적용
+              }
+        
+              // 확인 버튼 스타일 적용
+              const confirmButton = modal.querySelector('.submitButton');
+              if (confirmButton instanceof HTMLElement) {
+                confirmButton.style.backgroundColor = '#2AA3FB';
+                confirmButton.style.width = '275px';
+                confirmButton.style.height = '45px';
+                confirmButton.style.borderRadius = '10px';
+                confirmButton.style.color = '#FFFFFF';
+                confirmButton.style.border = 'none';
+                confirmButton.style.fontSize = '16px';
+                confirmButton.style.cursor = 'pointer';
+                confirmButton.style.display = 'block';
+                confirmButton.style.margin = '20px auto 0 auto';
+              }
+        
+              // 아이콘 스타일 적용
+              const icon = modal.querySelector('.swal2-icon.swal2-warning');
+              if (icon instanceof HTMLElement) {
+                icon.style.color = '#FFA000';
+                icon.style.marginBottom = '20px';
+              }
+            },
+          });
           setIsSubmitting(false);
           return;
         }
-
+        
         // 조회한 결과로 세션 스토리지에 저장
         sessionStorage.setItem("userId", result.member?.userId || "");
         sessionStorage.setItem("winnerStatus", result.member?.winnerStatus || "");
