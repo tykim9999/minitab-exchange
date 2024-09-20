@@ -167,6 +167,7 @@ export function CheckForm() {
               placeholder="01012345678"
               type="tel"
               maxLength={11} // 최대 11자리 입력 가능
+              required
             />
           </div>
         </div>

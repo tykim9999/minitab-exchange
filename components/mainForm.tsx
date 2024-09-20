@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "@styles/mainForm.css";
+import Swal from 'sweetalert2';
 
 interface FormValues {
   members_name: string;
@@ -48,8 +49,69 @@ export function MainForm() {
         setIsSubmitted(true); // 폼을 숨기고 팝업을 표시
         setShowPopup(true);
       } else {
-        // 전화번호가 이미 존재하므로 팝업을 표시하지 않음
-        alert(result.message || "에러가 발생했습니다.");
+        Swal.fire({
+          icon: 'warning',
+          title: '알림',
+          text: '이미 응모한 전화번호입니다.',
+          confirmButtonText: '확인',
+          buttonsStyling: false,
+          customClass: {
+            popup: 'my-popup-class',
+            title: 'my-title-class',
+            htmlContainer: 'my-text-class',
+            confirmButton: 'submitButton',
+          },
+          didOpen: (modal) => {
+            // 모달 스타일 적용
+            const popup = modal.querySelector('.my-popup-class');
+            if (popup instanceof HTMLElement) {
+              popup.style.borderRadius = '15px';
+              popup.style.padding = '30px';
+              popup.style.width = '400px';
+            }
+  
+            // 제목 스타일 적용
+            const title = modal.querySelector('.my-title-class');
+            if (title instanceof HTMLElement) {
+              title.style.fontSize = '24px';
+              title.style.fontWeight = 'bold';
+              title.style.color = '#000000';
+              title.style.textAlign = 'center';
+            }
+  
+            // 텍스트 스타일 적용
+            const text = modal.querySelector('.my-text-class');
+            if (text instanceof HTMLElement) {
+              text.style.color = '#000000';
+              text.style.fontSize = '18px';
+              text.style.fontWeight = 'normal';
+              text.style.textAlign = 'center';
+              text.style.whiteSpace = 'pre-line'; // 줄바꿈 적용
+            }
+  
+            // 확인 버튼 스타일 적용
+            const confirmButton = modal.querySelector('.submitButton');
+            if (confirmButton instanceof HTMLElement) {
+              confirmButton.style.backgroundColor = '#2AA3FB';
+              confirmButton.style.width = '275px';
+              confirmButton.style.height = '45px';
+              confirmButton.style.borderRadius = '10px';
+              confirmButton.style.color = '#FFFFFF';
+              confirmButton.style.border = 'none';
+              confirmButton.style.fontSize = '16px';
+              confirmButton.style.cursor = 'pointer';
+              confirmButton.style.display = 'block';
+              confirmButton.style.margin = '20px auto 0 auto';
+            }
+  
+            // 아이콘 스타일 적용
+            const icon = modal.querySelector('.swal2-icon.swal2-warning');
+            if (icon instanceof HTMLElement) {
+              icon.style.color = '#FFA000';
+              icon.style.marginBottom = '20px';
+            }
+          },
+        });
       }
     } catch (error) {
       console.error("Error submitting form:", error);
