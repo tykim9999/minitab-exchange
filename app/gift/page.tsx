@@ -14,7 +14,7 @@ export default function GiftPage() {
   const [isImageVisible, setIsImageVisible] = useState(false);
   const [isFireworksVisible, setIsFireworksVisible] = useState(true);
   const [isCelebrationFireworks, setIsCelebrationFireworks] = useState(false);
-  const [loading, setLoading] = useState(true); // 로딩 상태 추가
+  const [loading, setLoading] = useState(true);
   const fireworksRef = useRef<FireworksHandlers>(null);
   const [winnerStatus, setWinnerStatus] = useState<string>("X");
   const [winnerName, setWinnerName] = useState<string | null>();
@@ -50,7 +50,7 @@ export default function GiftPage() {
     // 불꽃놀이 설정
     setIsFireworksVisible(true);
     setTimeout(() => {
-      setIsFireworksVisible(false); // 3초 후 기본 불꽃놀이 종료
+      setIsFireworksVisible(false);
     }, 3000);
 
     if (userIdFromSession) {
@@ -70,10 +70,10 @@ export default function GiftPage() {
           console.error("Error fetching user name:", error);
         })
         .finally(() => {
-          setLoading(false); // 데이터가 모두 로드된 후 로딩 상태 종료
+          setLoading(false);
         });
     } else {
-      setLoading(false); // userId가 없는 경우에도 로딩 상태 종료
+      setLoading(false);
     }
 
     if (status === "O") {
@@ -81,7 +81,7 @@ export default function GiftPage() {
       setIsPopupVisible(true);
       setIsCelebrationFireworks(true);
       setTimeout(() => {
-        setIsCelebrationFireworks(false); // 3초 후 추가 불꽃놀이 종료
+        setIsCelebrationFireworks(false);
       }, 3000);
     }
   }, []);
@@ -92,12 +92,13 @@ export default function GiftPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center overflow-hidden animate-gradient"
+      className="flex flex-col items-center justify-between animate-gradient"
       style={{
         backgroundSize: "400% 400%",
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
-        height: "calc(var(--vh, 1vh) * 100)",
+        minHeight: "100vh",
+        padding: "1rem",
       }}
     >
       <div className="absolute inset-0 z-0 opacity-10 gradient">
@@ -110,10 +111,10 @@ export default function GiftPage() {
         />
       </div>
       <main
-        className="flex flex-col items-center w-full max-w-md px-4 relative"
-        style={{ height: "100%" }}
+        className="flex flex-col items-center w-full max-w-md px-2 relative space-y-4"
+        style={{ width: "100%" }}
       >
-        {/* 이미지 */}
+        {/* 메인 배너 이미지 */}
         <div className="flex justify-center items-center w-full">
           <Image
             src="/mainBanner.jpg"
@@ -121,17 +122,17 @@ export default function GiftPage() {
             width={500}
             height={300}
             className="rounded-lg shadow-lg w-full h-auto"
-            style={{ maxHeight: "30vh" }}
+            style={{ maxHeight: "30vh", objectFit: "cover" }}
           />
         </div>
 
         <ContextMenu>
-          <div className="gap-2 flex flex-col items-center mt-2">
+          <div className="flex flex-col items-center space-y-2">
             <ContextMenuTrigger>
               {/* 스타벅스 이미지: 당첨자에게만 표시 */}
               {isImageVisible && winnerStatus === "O" ? (
                 <div className="relative flex flex-col items-center">
-                  <div className="absolute top-[-25px] text-2xl">👑</div>
+                  <div className="absolute -top-4 text-2xl">👑</div>
                   <Image
                     src="/starbucks.png"
                     alt="스타벅스 기프티콘 이미지"
@@ -150,8 +151,8 @@ export default function GiftPage() {
                     alt="Book A"
                     width={210}
                     height={297}
-                    className="w-auto h-auto"
-                    style={{ maxHeight: "40vh", minHeight: "30vh" }}
+                    className="w-full h-auto"
+                    style={{ maxHeight: "40vh", objectFit: "contain" }}
                   />
                 ) : bookId === 2 ? (
                   <Image
@@ -159,17 +160,17 @@ export default function GiftPage() {
                     alt="Book B"
                     width={210}
                     height={297}
-                    className="w-auto h-auto"
-                    style={{ maxHeight: "40vh" }}
+                    className="w-full h-auto"
+                    style={{ maxHeight: "40vh", objectFit: "contain" }}
                   />
                 ) : (
-                  <p>데이터가 없습니다</p>
+                  <p className="text-white">데이터가 없습니다</p>
                 )}
               </div>
             </ContextMenuTrigger>
 
             {/* 책 제목 및 저자 */}
-            <div className="text-lg text-center font-bold mt-2">
+            <div className="text-lg text-center font-bold">
               {bookId === 1
                 ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
                 : bookId === 2
@@ -184,15 +185,12 @@ export default function GiftPage() {
               </p>
             </div>
 
+            {/* 빨간색 영역 */}
             <div
-              className="w-full max-w-xs h-12 font-bold bg-red-600 text-white flex items-center justify-center rounded-lg mt-2"
+              className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-sm font-bold"
               style={{
                 animationDelay: "1.1s",
                 animationDuration: "2.0s",
-                borderRadius: "10px",
-                paddingLeft: "10px",
-                paddingRight: "10px",
-                marginBottom: "15px",
               }}
             >
               본 화면을 이벤트 담당자에게 보여주세요!
@@ -240,66 +238,41 @@ export default function GiftPage() {
         {isPopupVisible && winnerStatus === "O" && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div
-              className="bg-white p-6 rounded-2xl shadow-2xl text-center"
+              className="bg-white p-4 rounded-2xl shadow-2xl text-center w-11/12 max-w-sm space-y-4"
               style={{
-                width: "80vw",
-                maxWidth: "450px",
-                maxHeight: "550px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                
-
-                justifyContent: "center",
-                textAlign: "center"
+                maxHeight: "90vh",
+                overflowY: "auto",
               }}
             >
               {/* 축하 메시지 */}
-              <h2 className="text-2xl font-extrabold mb-2 text-gray-800">
+              <h2 className="text-xl font-extrabold text-gray-800">
                 {winnerName + "님"}
               </h2>
-              <h3 className="text-lg font-extrabold text-black mt-2">
+              <h3 className="text-md font-extrabold text-black">
                 스타벅스 기프티콘 5만원권에 <br />
                 당첨 되셨습니다!
               </h3>
 
               {/* 이미지 컨테이너 */}
-              <div
-                className="relative bg-gray-200 mb-4 rounded-lg overflow-hidden mt-4"
-                style={{
-                  width: "250px",
-                  height: "160px",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
+              <div className="relative bg-gray-200 rounded-lg overflow-hidden">
                 <Image
                   src="/starbucks.png"
                   alt="스타벅스 기프티콘 이미지"
                   width={250}
                   height={250}
-                  className="object-contain"
+                  className="object-contain w-full h-full"
                 />
               </div>
 
               {/* 닫기 버튼 */}
               <button
-                className="bg-black text-white font-semibold rounded-full shadow-lg hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-black text-white font-semibold rounded-full shadow-lg hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full py-2"
                 onClick={() => setIsPopupVisible(false)}
-                style={{
-                  fontSize: "1rem",
-                  lineHeight: "1.25rem",
-                  width: "250px",
-                  padding: "0.75rem",
-                  textAlign: "center",
-                  borderRadius: "10px",
-                }}
               >
                 닫기
               </button>
             </div>
           </div>
-
         )}
       </main>
     </div>
