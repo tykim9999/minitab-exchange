@@ -29,13 +29,31 @@ export function MainForm() {
     console.log("Book ID :", storedBookId);
   }, []);
 
-  // 폼 제출 처리
   const onSubmit = async (values: FormValues) => {
     setIsSubmitting(true); // 제출 시작 시 로딩 활성화
     try {
-      setFormValues(values); // 폼 데이터를 상태에 저장
-      setIsSubmitted(true); // 폼을 숨기고 팝업을 표시
-      setShowPopup(true);
+      const response = await fetch("/api/checkPhoneNumber", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // 전화번호가 데이터베이스에 없으므로 팝업을 표시
+        setFormValues(values); // 폼 데이터를 상태에 저장
+        setIsSubmitted(true); // 폼을 숨기고 팝업을 표시
+        setShowPopup(true);
+      } else {
+        // 전화번호가 이미 존재하므로 팝업을 표시하지 않음
+        alert(result.message || "에러가 발생했습니다.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("에러가 발생했습니다. 다시 시도해주세요.");
     } finally {
       setIsSubmitting(false); // 제출이 끝나면 로딩 비활성화
     }
@@ -95,7 +113,8 @@ export function MainForm() {
             외에 다른 목적으로 사용하지 않습니다. 귀하는 개인정보의 수집 및
             이용에 대한 동의를 거부할 수 있으며,
             <span style={{ fontWeight: "bolder" }}>
-              {" "}동의를 거부할 경우 이벤트 참여 및 경품 수령이 제한될 수 있습니다.
+              {" "}
+              동의를 거부할 경우 이벤트 참여 및 경품 수령이 제한될 수 있습니다.
             </span>
           </p>
         </div>
@@ -141,7 +160,10 @@ export function MainForm() {
 
             <p className="members">전화번호</p>
             <div className="input-container">
-              <label htmlFor="members_phone_number" className="text-right"></label>
+              <label
+                htmlFor="members_phone_number"
+                className="text-right"
+              ></label>
               <input
                 id="members_phone_number"
                 {...form.register("members_phone_number")}

@@ -36,14 +36,6 @@ export async function POST(req: Request) {
   const members_privacy_consent = privacy_consent;
 
   try {
-    // 전화번호 중복 확인
-    const phoneCheckResult = await sql`
-      SELECT * FROM Members WHERE members_phone_number = ${members_phone_number}
-    `;
-    if (phoneCheckResult.rows.length > 0) {
-      return NextResponse.json({ error: '이미 응모한 전화번호입니다.' }, { status: 400 });
-    }
-
     // book_id 1과 2의 현재 수량을 가져옴
     const book1CountResults = await sql`
       SELECT COUNT(*) AS count FROM Members WHERE members_book_id = 1

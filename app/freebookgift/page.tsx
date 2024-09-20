@@ -57,7 +57,7 @@ export default function Home() {
           <div
             className="bg-white w-full rounded-lg mt-4 overflow-y-auto"
             style={{
-              maxHeight: "calc(70vh - 1rem)", // 필요하다면 이 부분도 조정
+              maxHeight: "calc(80vh - 1rem)", // 필요하다면 이 부분도 조정
               zIndex: 10,
             }}
           >
