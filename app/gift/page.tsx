@@ -99,7 +99,8 @@ export default function GiftPage() {
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
           height: "calc(var(--vh, 1vh) * 100)",
-        padding: "1rem",
+        // padding: "1rem",
+        
       }}
     >
       <div className="absolute inset-0 z-0 opacity-10 gradient overflow-hidden">
