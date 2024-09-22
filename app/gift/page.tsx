@@ -113,7 +113,7 @@ export default function GiftPage() {
       </div>
       <main
         className="flex flex-col items-center w-full max-w-md px-2 relative space-y-4"
-        style={{ width: "100%" }}
+        style={{ width: "100%", overflow:"hidden" }}
       >
         {/* 메인 배너 이미지 */}
         <div className="flex justify-center items-center w-full">
