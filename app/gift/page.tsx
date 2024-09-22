@@ -129,7 +129,20 @@ export default function GiftPage() {
         <ContextMenu>
           <div className="flex flex-col items-center space-y-2">
             <ContextMenuTrigger>
-              
+              {/* 스타벅스 이미지: 당첨자에게만 표시 */}
+              {isImageVisible && winnerStatus === "O" ? (
+                <div className="relative flex flex-col items-center">
+                  <div className="absolute -top-4 text-2xl">👑</div>
+                  <Image
+                    src="/starbucks.png"
+                    alt="스타벅스 기프티콘 이미지"
+                    width={100}
+                    height={50}
+                    className="object-contain"
+                  />
+                </div>
+              ) : null}
+
               {/* 책 이미지 */}
               <div className="flex items-center justify-center">
                 {bookId === 1 ? (
@@ -171,20 +184,6 @@ export default function GiftPage() {
                   : "정보 없음"}
               </p>
             </div>
-            
-             {/* 스타벅스 이미지: 당첨자에게만 표시 */}
-            {isImageVisible && winnerStatus === "O" ? (
-                <div className="relative flex flex-col items-center">
-                  <div className="absolute -top-4 text-2xl"></div>
-                  <Image
-                    src="/starbucksCard.jpg"
-                    alt="스타벅스 기프티콘 이미지"
-                    width={100}
-                    height={40}
-                    className="object-contain rounded-lg shadow-md"
-                  />
-                </div>
-              ) : null}
 
             {/* 빨간색 영역 */}
             <div
@@ -239,44 +238,38 @@ export default function GiftPage() {
         {isPopupVisible && winnerStatus === "O" && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
             <div
-              className="bg-white p-4 rounded-2xl shadow-2xl text-center w-10/12 max-w-sm space-y-4"
+              className="bg-white p-4 rounded-2xl shadow-2xl text-center w-11/12 max-w-sm space-y-4"
               style={{
-                display:"flex",
-                flexDirection:"column",
-                alignItems:"center",
-                // maxHeight: "90vh",
-                overflowY: "auto"
+                maxHeight: "90vh",
+                overflowY: "auto",
               }}
             >
               {/* 축하 메시지 */}
-              <h2 className="text-2xl font-black text-gray-800">
-                {winnerName + "님🌟"}
+              <h2 className="text-xl font-extrabold text-gray-800">
+                {winnerName + "님"}
               </h2>
-              <h3 className="text-sm font-bold text-black">
-              {winnerName + "님"}, 스타벅스 기프티콘 5만원권에 <br />
+              <h3 className="text-md font-extrabold text-black">
+                스타벅스 기프티콘 5만원권에 <br />
                 당첨 되셨습니다!
               </h3>
 
-
               {/* 이미지 컨테이너 */}
-              <div className="bg-gray-200 rounded-lg overflow-hidden">
+              <div className="relative bg-gray-200 rounded-lg overflow-hidden">
                 <Image
-                  src="/starbucksCard.jpg"
+                  src="/starbucks.png"
                   alt="스타벅스 기프티콘 이미지"
                   width={250}
-                  height={150}
+                  height={250}
                   className="object-contain w-full h-full"
-                  
                 />
               </div>
-              <div className="h-5"></div> {/* 빈 공간 추가 */}
 
               {/* 닫기 버튼 */}
               <button
-                className="bg-black text-white font-semibold rounded-2xl shadow-2xl hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-5/6 py-2"
+                className="bg-black text-white font-semibold rounded-full shadow-lg hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full py-2"
                 onClick={() => setIsPopupVisible(false)}
               >
-                확인
+                닫기
               </button>
             </div>
           </div>
