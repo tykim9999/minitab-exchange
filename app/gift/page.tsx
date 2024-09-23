@@ -92,16 +92,16 @@ export default function GiftPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-between animate-gradient"
+      className="flex flex-col items-center justify-between overflow-hidden animate-gradient"
       style={{
         backgroundSize: "400% 400%",
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
         minHeight: "100vh",
-        padding: "1rem",
+        // padding: "1rem",
       }}
     >
-      <div className="absolute inset-0 z-0 opacity-10 gradient">
+      <div className="absolute inset-0 z-0 opacity-10 gradient overflow-hidden">
         <Image
           src="/svg/circuit.svg"
           layout="fill"
@@ -129,20 +129,21 @@ export default function GiftPage() {
         <ContextMenu>
           <div className="flex flex-col items-center space-y-2">
             <ContextMenuTrigger>
-              {/* 스타벅스 이미지: 당첨자에게만 표시 */}
-              {isImageVisible && winnerStatus === "O" ? (
+
+               {/* 스타벅스 이미지: 당첨자에게만 표시 */}
+            {isImageVisible && winnerStatus === "O" ? (
                 <div className="relative flex flex-col items-center">
                   <div className="absolute -top-6 text-2xl">👑</div>
                   <Image
                     src="/starbucksCard.jpg"
                     alt="스타벅스 기프티콘 이미지"
                     width={100}
-                    height={50}
-                    className="object-contain rounded-lg" 
+                    height={40}
+                    className="object-contain rounded-lg shadow-md"
                   />
                 </div>
               ) : null}
-
+              
               {/* 책 이미지 */}
               <div className="flex items-center justify-center">
                 {bookId === 1 ? (
@@ -197,7 +198,6 @@ export default function GiftPage() {
             </div>
           </div>
         </ContextMenu>
-
 
         {/* 기본 불꽃놀이 */}
         {isFireworksVisible && (
