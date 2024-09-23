@@ -49,14 +49,14 @@ export async function POST(req: Request) {
 
     let members_book_id: number;
 
-    // 두 권의 책 모두 60권 미만일 경우 랜덤 배정
-    if (book1Count < 60 && book2Count < 60) {
+    // 두 권의 책 모두 book1 = 92, book2 = 64권 미만일 경우 랜덤 배정
+    if (book1Count < 92 && book2Count < 64) {
       members_book_id = Math.random() < 0.5 ? 1 : 2;
-    } else if (book1Count >= 60 && book2Count < 60) {
-      // book_id 1이 60권을 초과한 경우 book_id 2로 배정
+    } else if (book1Count >= 92 && book2Count < 64) {
+      // book_id 1이 92권을 초과한 경우 book_id 2로 배정
       members_book_id = 2;
-    } else if (book2Count >= 60 && book1Count < 60) {
-      // book_id 2가 60권을 초과한 경우 book_id 1으로 배정
+    } else if (book2Count >= 64 && book1Count < 92) {
+      // book_id 2가 64권을 초과한 경우 book_id 1으로 배정
       members_book_id = 1;
     } else {
       return NextResponse.json({ error: '책의 재고가 모두 소진되었습니다.' }, { status: 400 });
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     // 당첨자 수가 3명 미만일 경우 확률적으로 당첨자를 선정
     if (winnerCount < 3) {
       const remainingSpots = 3 - winnerCount;  // 남은 당첨자 자리
-      const remainingParticipants = 120 - registeredCount;  // 남은 참가 가능 인원
+      const remainingParticipants = 156 - registeredCount;  // 남은 참가 가능 인원
       const probability = remainingSpots / remainingParticipants;  // 당첨 확률 계산
 
       // 확률에 따라 랜덤하게 당첨 여부 결정
