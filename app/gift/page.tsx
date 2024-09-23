@@ -98,16 +98,14 @@ export default function GiftPage() {
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
         minHeight: "100vh",
-        // overflow: "hidden"
+        overflow: "hidden"
         // padding: "1rem",
       }}
     >
-      <div className="absolute inset-0 z-0 opacity-10 gradient"
-        style={{ overflow: "hidden" }}
-        >
+      <div className="absolute inset-0 z-0 opacity-10 gradient">
         <Image
           src="/svg/circuit.svg"
-          layout="fill"
+          fill
           objectFit="cover"
           alt="Circuit Background"
           className="svg overflow-hidden"
@@ -116,7 +114,7 @@ export default function GiftPage() {
 
 
       <main
-        className="flex flex-col items-center w-full max-w-md px-2 relative space-y-4"
+        className="flex flex-col items-center w-full max-w-md px-2 relative"
         style={{ width: "100%"}}
       >
         {/* 메인 배너 이미지 */}
@@ -137,7 +135,7 @@ export default function GiftPage() {
       
       {/* 책 이미지 */}
       <div className="relative flex items-center justify-center"
-      style={{marginTop:"30px"}}>
+      style={{marginTop:"40px"}}>
         {bookId === 1 ? (
           <Image
             src="/bookA.png"
