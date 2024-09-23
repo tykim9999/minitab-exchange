@@ -92,16 +92,16 @@ export default function GiftPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-between overflow-hidden animate-gradient"
+      className="flex flex-col items-center justify-between animate-gradient"
       style={{
         backgroundSize: "400% 400%",
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
-        height: "calc(var(--vh, 1vh) * 100)",
-        // padding: "1rem",
+        minHeight: "100vh",
+        padding: "1rem",
       }}
     >
-      <div className="absolute inset-0 z-0 opacity-10 gradient overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-10 gradient">
         <Image
           src="/svg/circuit.svg"
           layout="fill"
@@ -127,10 +127,24 @@ export default function GiftPage() {
         </div>
 
         <ContextMenu>
-          <div className="relative flex flex-col items-center space-y-4">
+          <div className="flex flex-col items-center space-y-2">
             <ContextMenuTrigger>
+              {/* 스타벅스 이미지: 당첨자에게만 표시 */}
+              {isImageVisible && winnerStatus === "O" ? (
+                <div className="relative flex flex-col items-center">
+                  <div className="absolute -top-6 text-2xl">👑</div>
+                  <Image
+                    src="/starbucksCard.jpg"
+                    alt="스타벅스 기프티콘 이미지"
+                    width={100}
+                    height={50}
+                    className="object-contain rounded-lg" 
+                  />
+                </div>
+              ) : null}
+
               {/* 책 이미지 */}
-              <div className="relative flex items-center justify-center">
+              <div className="flex items-center justify-center">
                 {bookId === 1 ? (
                   <Image
                     src="/bookA.png"
@@ -152,32 +166,6 @@ export default function GiftPage() {
                 ) : (
                   <p className="text-white">데이터가 없습니다</p>
                 )}
-
-                {/* 스타벅스 이미지: 당첨자에게만 표시 */}
-                {isImageVisible && winnerStatus === "O" ? (
-                  <div className="absolute top-3 left-3 transform -translate-x-1/2 -translate-y-1/2 " >
-                    <div
-                      className="absolute -top-4 left-0 text-2xl"
-                      style={{
-                        transform: "rotate(-30deg)",
-                      }} /* 기울이기 효과 */
-                    >
-                      👑
-                    </div>{" "}
-                    {/* 왕관 이모티콘 */}
-                    <Image
-                      src="/starbucksCard.jpg"
-                      alt="스타벅스 기프티콘 이미지"
-                      width={100}
-                      height={40}
-                      className="object-contain rounded-lg shadow-md"
-                      style={{
-                        border:"0.5px solid black",
-                        transform: "rotate(-30deg)",
-                      }} /* 기울이기 효과 */
-                    />
-                  </div>
-                ) : null}
               </div>
             </ContextMenuTrigger>
 
@@ -209,6 +197,7 @@ export default function GiftPage() {
             </div>
           </div>
         </ContextMenu>
+
 
         {/* 기본 불꽃놀이 */}
         {isFireworksVisible && (
@@ -252,11 +241,11 @@ export default function GiftPage() {
             <div
               className="bg-white p-4 rounded-2xl shadow-2xl text-center w-10/12 max-w-sm space-y-4"
               style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
+                display:"flex",
+                flexDirection:"column",
+                alignItems:"center",
                 // maxHeight: "90vh",
-                overflowY: "auto",
+                overflowY: "auto"
               }}
             >
               {/* 축하 메시지 */}
@@ -264,9 +253,11 @@ export default function GiftPage() {
                 {winnerName + "님"}
               </h2>
               <h3 className="text-sm font-bold text-black">
-                {winnerName + "님"}, 스타벅스 기프티콘 5만원권에 <br />
+              {winnerName + "님"}, 스타벅스 기프티콘 5만원권에 <br />
                 당첨 되셨습니다!
               </h3>
+
+
               {/* 이미지 컨테이너 */}
               <div className="bg-gray-200 rounded-lg overflow-hidden">
                 <Image
@@ -275,9 +266,11 @@ export default function GiftPage() {
                   width={250}
                   height={150}
                   className="object-contain w-full h-full"
+                  
                 />
               </div>
               <div className="h-5"></div> {/* 빈 공간 추가 */}
+
               {/* 닫기 버튼 */}
               <button
                 className="bg-black text-white font-semibold rounded-2xl shadow-2xl hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-5/6 py-2"
