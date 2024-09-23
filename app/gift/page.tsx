@@ -102,7 +102,9 @@ export default function GiftPage() {
         // padding: "1rem",
       }}
     >
-      <div className="absolute inset-0 z-0 opacity-10 gradient overflow-hidden">
+      <div className="absolute inset-0 z-0 opacity-10 gradient"
+        style={{ overflow: "hidden" }}
+        >
         <Image
           src="/svg/circuit.svg"
           layout="fill"
@@ -113,7 +115,7 @@ export default function GiftPage() {
       </div>
       <main
         className="flex flex-col items-center w-full max-w-md px-2 relative space-y-4"
-        style={{ width: "100%", overflow:"hidden" }}
+        style={{ width: "100%"}}
       >
         {/* 메인 배너 이미지 */}
         <div className="flex justify-center items-center w-full">
@@ -245,7 +247,7 @@ export default function GiftPage() {
                 display:"flex",
                 flexDirection:"column",
                 alignItems:"center",
-                // maxHeight: "90vh",
+                maxHeight: "90vh",
                 overflowY: "auto"
               }}
             >
