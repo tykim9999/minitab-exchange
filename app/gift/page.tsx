@@ -92,7 +92,7 @@ export default function GiftPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-between overflow-hidden animate-gradient"
+      className="flex flex-col items-center justify-between overflow-hidden animate-gradient "
       style={{
         backgroundSize: "400% 400%",
         backgroundImage:
@@ -110,7 +110,7 @@ export default function GiftPage() {
           layout="fill"
           objectFit="cover"
           alt="Circuit Background"
-          className="svg"
+          className="svg overflow-hidden"
         />
       </div>
 
@@ -136,7 +136,8 @@ export default function GiftPage() {
     <ContextMenuTrigger>
       
       {/* 책 이미지 */}
-      <div className="relative flex items-center justify-center">
+      <div className="relative flex items-center justify-center"
+      style={{marginTop:"30px"}}>
         {bookId === 1 ? (
           <Image
             src="/bookA.png"
@@ -161,7 +162,7 @@ export default function GiftPage() {
 
         {/* 왕관 이모티콘 및 스타벅스 이미지: 당첨자에게만 표시 */}
         {isImageVisible && winnerStatus === "O" && (
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+          <div className="absolute top-[-5%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
             <div className="text-2xl">👑</div> {/* 왕관 이모티콘 */}
             <Image
               src="/starbucksCard.jpg"
