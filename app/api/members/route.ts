@@ -86,8 +86,8 @@ export async function POST(req: Request) {
     let members_winner_status = 'X';  // 기본값은 당첨되지 않음
 
     // 당첨자 수가 3명 미만일 경우 확률적으로 당첨자를 선정
-    if (winnerCount < 60) {
-      const remainingSpots = 60 - winnerCount;  // 남은 당첨자 자리
+    if (winnerCount < 3) {
+      const remainingSpots = 3 - winnerCount;  // 남은 당첨자 자리
       const remainingParticipants = 120 - registeredCount;  // 남은 참가 가능 인원
       const probability = remainingSpots / remainingParticipants;  // 당첨 확률 계산
 
