@@ -101,7 +101,7 @@ export default function GiftPage() {
         padding: "1rem",
       }}
     >
-      <div className="absolute inset-0 z-0 opacity-10 gradient">
+      <div className="absolute inset-0 z-0 opacity-10 gradient overflow-hidden">
         <Image
           src="/svg/circuit.svg"
           layout="fill"
