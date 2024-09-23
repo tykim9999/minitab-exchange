@@ -241,7 +241,7 @@ export default function GiftPage() {
 
         {/* 팝업 */}
         {isPopupVisible && winnerStatus === "O" && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 overflow-hidden">
             <div
               className="bg-white p-4 rounded-2xl shadow-2xl text-center w-10/12 max-w-sm space-y-4"
               style={{
