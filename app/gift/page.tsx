@@ -92,12 +92,13 @@ export default function GiftPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-between overflow-hidden animate-gradient"
+      className="flex flex-col items-center justify-between animate-gradient"
       style={{
         backgroundSize: "400% 400%",
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
         minHeight: "100vh",
+        overflow: "hidden"
         // padding: "1rem",
       }}
     >
@@ -111,8 +112,8 @@ export default function GiftPage() {
         />
       </div>
       <main
-        className="flex flex-col items-center w-full max-w-md px-2 relative space-y-4 overflow-hidden"
-        style={{ width: "100%" }}
+        className="flex flex-col items-center w-full max-w-md px-2 relative space-y-4"
+        style={{ width: "100%", overflow:"hidden" }}
       >
         {/* 메인 배너 이미지 */}
         <div className="flex justify-center items-center w-full">
