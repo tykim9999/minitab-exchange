@@ -92,7 +92,7 @@ export default function GiftPage() {
 
   return (
     <div
-      className="flex flex-col items-center justify-between animate-gradient"
+      className="flex flex-col items-center justify-between overflow-hidden animate-gradient"
       style={{
         backgroundSize: "400% 400%",
         backgroundImage:
