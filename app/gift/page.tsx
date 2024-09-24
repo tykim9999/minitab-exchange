@@ -97,8 +97,8 @@ export default function GiftPage() {
         backgroundSize: "400% 400%",
         backgroundImage:
           "linear-gradient(288deg, rgba(26,46,91,100) 38%, rgba(60,132,206,1) 78%, rgba(3,180, 237,100) 88%, rgba(255,255,255,51) 99%)",
-          height: "calc(var(--vh, 1vh) * 100)",
-        overflow: "hidden"
+        height: "calc(var(--vh, 1vh) * 100)",
+        overflow: "hidden",
         // padding: "1rem",
       }}
     >
@@ -112,10 +112,9 @@ export default function GiftPage() {
         />
       </div>
 
-
       <main
         className="flex flex-col items-center w-full max-w-md px-2 relative"
-        style={{ width: "100%"}}
+        style={{ width: "100%" }}
       >
         {/* 메인 배너 이미지 */}
         <div className="flex justify-center items-center w-full">
@@ -130,78 +129,79 @@ export default function GiftPage() {
         </div>
 
         <ContextMenu>
-  <div className="relative flex flex-col items-center space-y-2">
-    <ContextMenuTrigger>
-      
-      {/* 책 이미지 */}
-      <div className="relative flex items-center justify-center"
-      style={{marginTop:"40px"}}>
-        {bookId === 1 ? (
-          <Image
-            src="/bookA.png"
-            alt="Book A"
-            width={210}
-            height={297}
-            className="w-full h-auto"
-            style={{ maxHeight: "40vh", objectFit: "contain" }}
-          />
-        ) : bookId === 2 ? (
-          <Image
-            src="/bookB.jpg"
-            alt="Book B"
-            width={210}
-            height={297}
-            className="w-full h-auto"
-            style={{ maxHeight: "40vh", objectFit: "contain" }}
-          />
-        ) : (
-          <p className="text-white">데이터가 없습니다</p>
-        )}
+          <div className="relative flex flex-col items-center space-y-2">
+            <ContextMenuTrigger>
+              {/* 책 이미지 */}
+              <div
+                className="relative flex items-center justify-center"
+                style={{ marginTop: "40px" }}
+              >
+                {bookId === 1 ? (
+                  <Image
+                    src="/bookA.png"
+                    alt="Book A"
+                    width={210}
+                    height={297}
+                    className="w-full h-auto"
+                    style={{ maxHeight: "40vh", objectFit: "contain" }}
+                  />
+                ) : bookId === 2 ? (
+                  <Image
+                    src="/bookB.jpg"
+                    alt="Book B"
+                    width={210}
+                    height={297}
+                    className="w-full h-auto"
+                    style={{ maxHeight: "40vh", objectFit: "contain" }}
+                  />
+                ) : (
+                  <p className="text-white">데이터가 없습니다</p>
+                )}
 
-        {/* 왕관 이모티콘 및 스타벅스 이미지: 당첨자에게만 표시 */}
-        {isImageVisible && winnerStatus === "O" && (
-          <div className="absolute top-[-5%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-            <div className="text-2xl">👑</div> {/* 왕관 이모티콘 */}
-            <Image
-              src="/starbucksCard.jpg"
-              alt="스타벅스 기프티콘 이미지"
-              width={100}
-              height={40}
-              className="object-contain rounded-lg shadow-md mt-[-5px]"  // 이미지와 왕관을 붙이기 위해 마진 제거
-            />
+                {/* 왕관 이모티콘 및 스타벅스 이미지: 당첨자에게만 표시 */}
+                {isImageVisible && winnerStatus === "O" && (
+                  <div className="absolute top-[-5%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                    <div className="text-2xl">👑</div> {/* 왕관 이모티콘 */}
+                    <Image
+                      src="/starbucksCard.jpg"
+                      alt="스타벅스 기프티콘 이미지"
+                      width={100}
+                      height={40}
+                      className="object-contain rounded-lg shadow-md mt-[-5px]" // 이미지와 왕관을 붙이기 위해 마진 제거
+                    />
+                  </div>
+                )}
+              </div>
+            </ContextMenuTrigger>
+
+            {/* 책 제목 및 저자 */}
+            <div className="text-lg text-center font-bold">
+              {bookId === 1
+                ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
+                : bookId === 2
+                ? "Minitab 공정데이터 분석방법론"
+                : "도서 정보 없음"}
+              <p className="text-sm text-right mt-1">
+                {bookId === 1
+                  ? "by 신용균, 이은지"
+                  : bookId === 2
+                  ? "by 김영일"
+                  : "정보 없음"}
+              </p>
+            </div>
+
+            {/* 빨간색 영역 */}
+            <div
+              className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-base font-bold animate-pulse"
+              style={{
+                animationDelay: "1.1s",
+                animationDuration: "2.0s",
+              }}
+            >
+              본 화면을 이벤트 담당자에게 보여주세요!
+            </div>
           </div>
-        )}
-      </div>
-    </ContextMenuTrigger>
-
-    {/* 책 제목 및 저자 */}
-    <div className="text-lg text-center font-bold">
-      {bookId === 1
-        ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
-        : bookId === 2
-        ? "Minitab 공정데이터 분석방법론"
-        : "도서 정보 없음"}
-      <p className="text-sm text-right mt-1">
-        {bookId === 1
-          ? "by 신용균, 이은지"
-          : bookId === 2
-          ? "by 김영일"
-          : "정보 없음"}
-      </p>
-    </div>
-
-    {/* 빨간색 영역 */}
-    <div
-      className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg  px-4 py-2 text-base font-bold"
-      style={{
-        animationDelay: "1.1s",
-        animationDuration: "2.0s",
-      }}
-    >
-      본 화면을 이벤트 담당자에게 보여주세요!
-    </div>
-  </div>
-</ContextMenu>
+        </ContextMenu>
 
         {/* 기본 불꽃놀이 */}
         {isFireworksVisible && (
@@ -245,11 +245,11 @@ export default function GiftPage() {
             <div
               className="bg-white p-4 rounded-2xl shadow-2xl text-center w-10/12 max-w-sm space-y-4"
               style={{
-                display:"flex",
-                flexDirection:"column",
-                alignItems:"center",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
                 maxHeight: "90vh",
-                overflowY: "auto"
+                overflowY: "auto",
               }}
             >
               {/* 축하 메시지 */}
@@ -257,11 +257,9 @@ export default function GiftPage() {
                 {winnerName + "님"}
               </h2>
               <h3 className="text-sm font-bold text-black">
-              {winnerName + "님"}, 스타벅스 기프티콘 5만원권에 <br />
+                {winnerName + "님"}, 스타벅스 기프티콘 5만원권에 <br />
                 당첨 되셨습니다!
               </h3>
-
-
               {/* 이미지 컨테이너 */}
               <div className="bg-gray-200 rounded-lg overflow-hidden">
                 <Image
@@ -270,11 +268,9 @@ export default function GiftPage() {
                   width={250}
                   height={150}
                   className="object-contain w-full h-full"
-                  
                 />
               </div>
               <div className="h-5"></div> {/* 빈 공간 추가 */}
-
               {/* 닫기 버튼 */}
               <button
                 className="bg-black text-white font-semibold rounded-2xl shadow-2xl hover:bg-gray-800 hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-5/6 py-2"
