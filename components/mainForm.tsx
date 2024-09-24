@@ -246,7 +246,6 @@ export function MainForm() {
                 {...form.register("members_company")}
                 className="input"
                 placeholder="회사명을 입력해주세요"
-                maxLength={20}
                 required
               />
             </div>
