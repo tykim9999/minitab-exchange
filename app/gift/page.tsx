@@ -192,7 +192,7 @@ export default function GiftPage() {
 
     {/* 빨간색 영역 */}
     <div
-      className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-sm font-bold"
+      className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg  px-4 py-2 text-base font-bold"
       style={{
         animationDelay: "1.1s",
         animationDuration: "2.0s",
