@@ -18,9 +18,9 @@ export async function POST(req: Request) {
   } = await req.json();
 
   // 필수 항목 확인
-  if (!members_name || !members_phone_number) {
-    return NextResponse.json({ error: '이름과 전화번호는 필수입니다.' }, { status: 400 });
-  }
+  // if (!members_name || !members_phone_number) {
+  //   return NextResponse.json({ error: '이름과 전화번호는 필수입니다.' }, { status: 400 });
+  // }
 
   // 핸드폰 번호 유효성 검사
   if (!validatePhoneNumber(members_phone_number)) {
@@ -28,9 +28,9 @@ export async function POST(req: Request) {
   }
 
   // 개인정보 동의 여부 확인
-  if (!privacy_consent || privacy_consent !== 'O') {
-    return NextResponse.json({ error: '개인정보 제공에 동의하셔야 합니다.' }, { status: 400 });
-  }
+  // if (!privacy_consent || privacy_consent !== 'O') {
+  //   return NextResponse.json({ error: '개인정보 제공에 동의하셔야 합니다.' }, { status: 400 });
+  // }
 
   // 개인정보 동의 값을 변수로 선언
   const members_privacy_consent = privacy_consent;

@@ -1,0 +1,20 @@
+config:
+  target: 'https://mss-exchange-2024.vercel.app'  # 테스트할 실제 배포된 웹사이트의 URL
+  phases:
+    - duration: 60  # 테스트를 60초 동안 실행합니다.
+      arrivalRate: 2  # 초당 3명의 새로운 가상 사용자가 요청을 보냅니다. 60초 동안 총 180명의 사용자가 요청을 보낼 수 있습니다.
+  defaults:
+    headers:
+      Content-Type: "application/json"  # JSON 데이터를 전송할 때 사용됩니다.
+
+scenarios:
+  - flow:
+      - post:
+          url: "/api/members"  # 데이터를 전송할 엔드포인트
+          json:
+              members_name: "Test User {{ $loopCount }}"
+              members_phone_number: "0101234{{ $loopCount | padLeft(3, '0') }}"
+              members_company: "Test Company"
+              members_message: "안녕하세요, 이건 테스트 메시지입니다."
+              privacy_consent: "O"
+      - think: 1  # 각 요청 사이에 1초의 대기 시간을 둡니다.
