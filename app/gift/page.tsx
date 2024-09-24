@@ -179,20 +179,20 @@ export default function GiftPage() {
               {bookId === 1
                 ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
                 : bookId === 2
-                ? "Minitab 공정데이터 분석방법론"
-                : "도서 정보 없음"}
+                  ? "Minitab 공정데이터 분석방법론"
+                  : "도서 정보 없음"}
               <p className="text-sm text-right mt-1">
                 {bookId === 1
                   ? "by 신용균, 이은지"
                   : bookId === 2
-                  ? "by 김영일"
-                  : "정보 없음"}
+                    ? "by 김영일"
+                    : "정보 없음"}
               </p>
             </div>
 
             {/* 빨간색 영역 */}
             <div
-              className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-base font-bold animate-pulse"
+              className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-base font-bold animate__animated animate__shakeX"
               style={{
                 animationDelay: "1.1s",
                 animationDuration: "2.0s",
@@ -200,6 +200,7 @@ export default function GiftPage() {
             >
               본 화면을 이벤트 담당자에게 보여주세요!
             </div>
+
           </div>
         </ContextMenu>
 
