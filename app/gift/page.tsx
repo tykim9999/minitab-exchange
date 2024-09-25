@@ -19,6 +19,7 @@ export default function GiftPage() {
   const [winnerStatus, setWinnerStatus] = useState<string>("X");
   const [winnerName, setWinnerName] = useState<string | null>();
   const [bookId, setBookId] = useState<number | null>(null);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   useEffect(() => {
     const setViewportHeight = () => {
@@ -86,6 +87,11 @@ export default function GiftPage() {
     }
   }, []);
 
+  // bookId 변경 시 이미지 로딩 상태 초기화
+  useEffect(() => {
+    setIsImageLoaded(false);
+  }, [bookId]);
+
   if (loading) {
     return null; // 로딩 중일 때 아무것도 표시하지 않음
   }
@@ -144,6 +150,7 @@ export default function GiftPage() {
                     height={297}
                     className="w-full h-auto"
                     style={{ maxHeight: "40vh", objectFit: "contain" }}
+                    onLoadingComplete={() => setIsImageLoaded(true)}
                   />
                 ) : bookId === 2 ? (
                   <Image
@@ -153,6 +160,7 @@ export default function GiftPage() {
                     height={297}
                     className="w-full h-auto"
                     style={{ maxHeight: "40vh", objectFit: "contain" }}
+                    onLoadingComplete={() => setIsImageLoaded(true)}
                   />
                 ) : (
                   <p className="text-white">데이터가 없습니다</p>
@@ -179,20 +187,21 @@ export default function GiftPage() {
               {bookId === 1
                 ? "실무 사례가 있는 고질적인 품질문제 해결 방법"
                 : bookId === 2
-                  ? "Minitab 공정데이터 분석방법론"
-                  : "도서 정보 없음"}
+                ? "Minitab 공정데이터 분석방법론"
+                : "도서 정보 없음"}
               <p className="text-sm text-right mt-1">
                 {bookId === 1
                   ? "by 신용균, 이은지"
                   : bookId === 2
-                    ? "by 김영일"
-                    : "정보 없음"}
+                  ? "by 김영일"
+                  : "정보 없음"}
               </p>
             </div>
 
-            {/* 빨간색 영역 */}
             <div
-              className="w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-base font-bold animate__animated animate__shakeX"
+              className={`w-full bg-red-600 text-white flex items-center justify-center rounded-lg px-4 py-2 text-base font-bold ${
+                isImageLoaded ? "animate__animated animate__shakeX" : ""
+              }`}
               style={{
                 animationDelay: "1.1s",
                 animationDuration: "2.0s",
@@ -200,7 +209,6 @@ export default function GiftPage() {
             >
               본 화면을 이벤트 담당자에게 보여주세요!
             </div>
-
           </div>
         </ContextMenu>
 

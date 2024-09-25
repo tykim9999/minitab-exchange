@@ -27,11 +27,6 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: '핸드폰 번호는 11자리 숫자여야 합니다.' }, { status: 400 });
   }
 
-  // 개인정보 동의 여부 확인
-  // if (!privacy_consent || privacy_consent !== 'O') {
-  //   return NextResponse.json({ error: '개인정보 제공에 동의하셔야 합니다.' }, { status: 400 });
-  // }
-
   // 개인정보 동의 값을 변수로 선언
   const members_privacy_consent = privacy_consent;
 
